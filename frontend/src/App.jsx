@@ -1,8 +1,10 @@
 import React, { Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import Hero from './components/Hero';
+import CarConfigurator from './components/CarConfigurator';
 
-// Lazy load heavy sections to improve initial TTI
+// Lazy load heavy sections
 const TransformerSection = lazy(() => import('./components/TransformerSection'));
 const CarSelection = lazy(() => import('./components/CarSelection'));
 
@@ -15,21 +17,31 @@ const GlobalLoader = () => (
   </div>
 );
 
+// Main landing page
+const Home = () => (
+  <main>
+    <Hero />
+    <Suspense fallback={<GlobalLoader />}>
+      <TransformerSection />
+    </Suspense>
+    <Suspense fallback={<GlobalLoader />}>
+      <CarSelection />
+    </Suspense>
+  </main>
+);
+
 function App() {
   return (
-    <main>
-      {/* Hero is the LCP, so it remains synchronous for immediate rendering */}
-      <Hero />
-      
-      {/* Heavy 3D sections are lazy-loaded with a sophisticated fallback */}
-      <Suspense fallback={<GlobalLoader />}>
-        <TransformerSection />
-      </Suspense>
-      
-      <Suspense fallback={<GlobalLoader />}>
-        <CarSelection />
-      </Suspense>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/configure/:carId" element={
+          <Suspense fallback={<GlobalLoader />}>
+            <CarConfigurator />
+          </Suspense>
+        } />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

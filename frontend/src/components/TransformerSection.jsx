@@ -13,7 +13,11 @@ import {
 } from '@react-three/drei';
 import * as THREE from 'three';
 
-const INTRO_CAR_URL = '/merc/source/mercedes_amg_gt4.glb';
+// 🔧 Local Draco decoder
+const DRACO_PATH = '/draco/';
+useGLTF.preload('/merc/source/merc_draco.glb', DRACO_PATH);
+
+const INTRO_CAR_URL = '/merc/source/merc_draco.glb';
 const SNAP_SOUND = 'https://assets.mixkit.co/sfx/preview/mixkit-mechanical-clutter-snap-1002.mp3';
 
 const BackgroundElements = () => {
@@ -49,8 +53,8 @@ const AnimatedScene = ({ scrollYProgress, audioEnabled }) => {
   const word1 = useRef();
   const word2 = useRef();
   const word3 = useRef();
-  
-  const { scene } = useGLTF(INTRO_CAR_URL);
+
+  const { scene } = useGLTF(INTRO_CAR_URL, DRACO_PATH);
   const textures = useTexture({
     livery: '/merc/textures/livery.png',
     skin: '/merc/textures/ext_skin.png',
@@ -65,7 +69,7 @@ const AnimatedScene = ({ scrollYProgress, audioEnabled }) => {
         child.visible = false;
         child.castShadow = true;
         child.receiveShadow = true;
-        
+
         const name = child.name.toLowerCase();
         const matName = (child.material.name || '').toLowerCase();
 

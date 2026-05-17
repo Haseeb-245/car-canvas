@@ -3,7 +3,11 @@ import { useGLTF, Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-const CAR_MODEL_URL = '/source/2024 Manthey Racing Porsche 911 GT3 RS.glb';
+// 🔧 Local Draco decoder
+const DRACO_PATH = '/draco/';
+
+const CAR_MODEL_URL = '/source/porsche_draco.glb';
+useGLTF.preload(CAR_MODEL_URL, DRACO_PATH);
 
 /* Premium Modern Palette - Aggressive & Powerful */
 const BODY_COLOR = new THREE.Color('#0a0a0b');  // Satin Obsidian
@@ -18,7 +22,7 @@ export default function CarModel({
   onToggleLights,
   ...props
 }) {
-  const { scene } = useGLTF(CAR_MODEL_URL);
+  const { scene } = useGLTF(CAR_MODEL_URL, DRACO_PATH);
   const group = useRef();
   const doors = useRef([]);
   const [activeHotspot, setActiveHotspot] = useState(null);

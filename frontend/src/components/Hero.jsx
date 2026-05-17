@@ -73,7 +73,7 @@ const Hero = () => {
   // Trigger ready state based on actual loading progress + minimal cinematic delay
   useEffect(() => {
     if (progress === 100) {
-      const t = setTimeout(() => setReady(true), 1000); 
+      const t = setTimeout(() => setReady(true), 1000);
       return () => clearTimeout(t);
     }
   }, [progress]);
@@ -127,46 +127,49 @@ const Hero = () => {
         {isCanvasVisible && (
           <Canvas
             shadows
+            frameloop={autoRotate ? "always" : "demand"} /* OPTIMIZED: Render on demand if not rotating */
             camera={{ position: [-1.5, 1.5, 8.5], fov: 42 }}
             gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.1 }}
           >
-          <color attach="background" args={['#0a0a0b']} />
-          <fog attach="fog" args={['#0a0a0b', 5, 20]} />
+            <color attach="background" args={['#0a0a0b']} />
+            <fog attach="fog" args={['#0a0a0b', 5, 20]} />
 
-          <Suspense fallback={null}>
-            {/* Soft Ambient for Luxury feel */}
-            <ambientLight intensity={0.5} color="#ffffff" />
+            <Suspense fallback={null}>
+              {/* Soft Ambient for Luxury feel */}
+              <ambientLight intensity={0.5} color="#ffffff" />
 
-            {/* Key Lighting - Premium Showroom setup */}
-            <spotLight position={[0, 10, 0]} intensity={150} angle={0.6} penumbra={1} castShadow shadow-mapSize={[1024, 1024]} color="#ffffff" />
-            <spotLight position={[10, 5, 10]} intensity={80} angle={0.5} penumbra={1} color="#ffffff" />
-            <spotLight position={[-10, 5, -10]} intensity={80} angle={0.5} penumbra={1} color="#c5a059" />
+              {/* Key Lighting - Premium Showroom setup */}
+              <spotLight position={[0, 10, 0]} intensity={150} angle={0.6} penumbra={1} castShadow shadow-mapSize={[1024, 1024]} color="#ffffff" />
+              <spotLight position={[10, 5, 10]} intensity={80} angle={0.5} penumbra={1} color="#ffffff" />
+              <spotLight position={[-10, 5, -10]} intensity={80} angle={0.5} penumbra={1} color="#c5a059" />
 
-            {/* High-end contact shadows */}
-            <ContactShadows position={[0, -0.89, 0]} opacity={0.7} scale={15} blur={3} far={2} color="#000000" />
+              {/* High-end contact shadows */}
+              {/* OPTIMIZED: resolution={256} frames={1} */}
+              <ContactShadows position={[0, -0.89, 0]} opacity={0.7} scale={15} blur={3} far={2} color="#000000" resolution={256} frames={1} />
 
-            <Environment preset="night" background={false} blur={1} />
+              <Environment preset="night" background={false} blur={1} />
 
-            <PresentationControls speed={1.2} global zoom={0.9} polar={[0, Math.PI / 4]} azimuth={[-Infinity, Infinity]}>
-              <group position={[0, -0.5, 0]}>
-                <CarModel
-                  doorsOpen={doorsOpen}
-                  lightsOn={lightsOn}
-                  autoRotate={autoRotate}
-                  onToggleDoors={() => setDoorsOpen(!doorsOpen)}
-                  onToggleLights={() => setLightsOn(!lightsOn)}
-                />
-                <ShowroomFloor />
-              </group>
-            </PresentationControls>
+              <PresentationControls speed={1.2} global zoom={0.9} polar={[0, Math.PI / 4]} azimuth={[-Infinity, Infinity]}>
+                <group position={[0, -0.5, 0]}>
+                  <CarModel
+                    doorsOpen={doorsOpen}
+                    lightsOn={lightsOn}
+                    autoRotate={autoRotate}
+                    onToggleDoors={() => setDoorsOpen(!doorsOpen)}
+                    onToggleLights={() => setLightsOn(!lightsOn)}
+                  />
+                  <ShowroomFloor />
+                </group>
+              </PresentationControls>
 
-            <EffectComposer disableNormalPass multisampling={4}>
-              <Bloom luminanceThreshold={1.2} mipmapBlur intensity={0.4} />
-              <ToneMapping mode={THREE.ACESFilmicToneMapping} exposure={1.0} />
-              <Vignette eskil={false} offset={0.1} darkness={1.2} />
-            </EffectComposer>
-          </Suspense>
-        </Canvas>
+              {/* OPTIMIZED: multisampling set to 0 to save GPU */}
+              <EffectComposer disableNormalPass multisampling={0}>
+                <Bloom luminanceThreshold={1.2} mipmapBlur intensity={0.4} />
+                <ToneMapping mode={THREE.ACESFilmicToneMapping} exposure={1.0} />
+                <Vignette eskil={false} offset={0.1} darkness={1.2} />
+              </EffectComposer>
+            </Suspense>
+          </Canvas>
         )}
       </div>
 
