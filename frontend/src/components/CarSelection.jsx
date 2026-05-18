@@ -9,17 +9,12 @@ import * as THREE from 'three';
 const DRACO_PATH = '/draco/';
 
 const CAR_DATA = [
-  { id: 1, name: '911 GT3 RS',     brand: 'PORSCHE',   model: '/source/porsche_draco.glb',     accentColor: '#66aaff', goldTint: '#c5a059', specs: { power: '518 HP',  speed: '296 km/h', accel: '3.2s', engine: 'Flat-6 4.0L' } },
-  { id: 2, name: 'AMG GT4',        brand: 'MERCEDES',  model: '/merc/source/merc_draco.glb',    accentColor: '#88cc66', goldTint: '#8fad5a', modelScale: 0.82, specs: { power: '730 HP',  speed: '315 km/h', accel: '2.9s', engine: 'V8 4.0L Biturbo' } },
-  { id: 3, name: 'Supra A80',      brand: 'TOYOTA',    model: '/supra/source/supra_draco.glb',  accentColor: '#ff6622', goldTint: '#c5a059', specs: { power: '320 HP',  speed: '285 km/h', accel: '4.6s', engine: 'Inline-6 3.0L' } },
-  { id: 4, name: 'Skyline GT-R R34', brand: 'NISSAN',  model: '/r34/source/r34_draco.glb',      accentColor: '#ff3344', goldTint: '#cc3344', specs: { power: '276 HP',  speed: '250 km/h', accel: '4.0s', engine: 'RB26DETT' } },
+  { id: 4, name: 'Skyline GT-R R34', brand: 'NISSAN',  model: '/r34/source/r34_custom_draco.glb',      accentColor: '#ff3344', goldTint: '#cc3344', specs: { power: '276 HP',  speed: '250 km/h', accel: '4.0s', engine: 'RB26DETT' } },
   { id: 5, name: 'AMG E63 S',      brand: 'MERCEDES',  model: '/e%2063/source/e63_draco.glb',   accentColor: '#ffaa00', goldTint: '#c5a059', specs: { power: '612 HP',  speed: '300 km/h', accel: '3.4s', engine: 'V8 4.0L Biturbo' } },
   { id: 6, name: 'Supra MkIV',     brand: 'TOYOTA',    model: '/supra/source/supra_draco.glb',  accentColor: '#cc44ff', goldTint: '#9955cc', specs: { power: '280 HP',  speed: '270 km/h', accel: '5.1s', engine: 'Inline-6 2JZ-GTE' } },
 ];
 
-// 🔧 Preload with local Draco path
-CAR_DATA.forEach(car => useGLTF.preload(car.model, DRACO_PATH));
-
+// 🔧 Preload with local Draco path deleted to accelerate initial load time
 const BEAM_H = 2.4;
 const HOLO_Y  = 2.4;
 const IRIS_R  = 1.8;
@@ -124,13 +119,62 @@ const PlatformSceneCore = ({ scene, hovered, accentColor, modelScale }) => {
   };
 
   const prepClone = (c) => {
+    // Detect if this is the Skyline R34 model
+    let isR34Model = false;
     c.traverse(o => {
-      if (o.isMesh) {
-        o.visible = true;
-        o.frustumCulled = false;
-        if (o.geometry) {
-          if (!o.geometry.attributes.normal) o.geometry.computeVertexNormals();
-          o.geometry.computeBoundingBox();
+      const objName = (o.name || '').toLowerCase();
+      if (objName.includes('r34') || objName.includes('skyline') || objName.includes('nismo') || objName.includes('te37') || objName.includes('lmgt4') || objName.includes('rims_stock')) {
+        isR34Model = true;
+      }
+    });
+
+    if (isR34Model) {
+      // 1. Remove immediate root-level stray duplicate nodes far from origin (only for R34!)
+      const toRemove = [];
+      c.children.forEach(o => {
+        if (o.position.length() > 5) {
+          o.visible = false;
+          toRemove.push(o);
+        }
+      });
+      toRemove.forEach(o => o.removeFromParent());
+    }
+
+    // 2. Hide all R34 custom upgrade rims/bumpers/wings/hoods and template nodes on the stock showroom view!
+    c.traverse(o => {
+      const objName = (o.name || '').toLowerCase();
+      const parentName = o.parent && o.parent.name ? o.parent.name.toLowerCase() : '';
+      
+      const isCustomUpgradePart = 
+        objName.includes('vossen') ||
+        objName.includes('te37') ||
+        objName.includes('lmgt4') ||
+        objName.includes('modified_rim') ||
+        parentName.includes('vossen') ||
+        parentName.includes('modified_rim') ||
+        objName.includes('modify_bumper_1') ||
+        objName.includes('modified_bumper_front_2') ||
+        (objName.includes('kit1') && !objName.includes('wing') && !objName.includes('hood')) ||
+        objName.includes('wing1a') ||
+        objName.includes('wing2a') ||
+        objName.includes('hood1b') ||
+        objName.includes('modified_hood_2');
+
+      const isTemplatePart = 
+        objName.includes('modified_rim_1') || 
+        objName.includes('vossen_gns-1') ||
+        parentName.includes('modified_rim_1') ||
+        parentName.includes('vossen_gns-1');
+
+      if (isCustomUpgradePart || isTemplatePart) {
+        o.visible = false;
+      } else {
+        if (o.isMesh) {
+          o.frustumCulled = false;
+          if (o.geometry) {
+            if (!o.geometry.attributes.normal) o.geometry.computeVertexNormals();
+            o.geometry.computeBoundingBox();
+          }
         }
       }
     });
@@ -351,7 +395,7 @@ const CardLoadingPlaceholder = ({ accentColor }) => (
 );
 
 /* ─────────────────────── PlatformCard ─────────────────────── */
-const PlatformCard = ({ car, index }) => {
+const PlatformCard = ({ car, index, user, onOpenAuth }) => {
   const navigate = useNavigate();
   const [hovered, setHovered]   = useState(false);
   const [showSpecs, setShowSpecs] = useState(false);
@@ -435,7 +479,14 @@ const PlatformCard = ({ car, index }) => {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
         transition={{ duration: 0.25 }}
-        onClick={e => { e.stopPropagation(); navigate(`/configure/${car.id}`); }}
+        onClick={e => { 
+          e.stopPropagation(); 
+          if (user) {
+            navigate(`/configure/${car.id}`); 
+          } else {
+            onOpenAuth();
+          }
+        }}
       >
         CONFIGURE →
       </motion.button>
@@ -444,7 +495,7 @@ const PlatformCard = ({ car, index }) => {
 };
 
 /* ─────────────────────── CarSelection ─────────────────────── */
-const CarSelection = () => (
+const CarSelection = ({ user, onOpenAuth }) => (
   <section
     className="showroom-section"
     id="fleet"
@@ -473,10 +524,15 @@ const CarSelection = () => (
     </motion.div>
 
     <div className="showroom-grid">
-      {CAR_DATA.slice(0, 3).map((car, i) => <PlatformCard key={car.id} car={car} index={i} />)}
-    </div>
-    <div className="showroom-grid">
-      {CAR_DATA.slice(3, 6).map((car, i) => <PlatformCard key={car.id} car={car} index={i + 3} />)}
+      {CAR_DATA.map((car, i) => (
+        <PlatformCard 
+          key={car.id} 
+          car={car} 
+          index={i} 
+          user={user} 
+          onOpenAuth={onOpenAuth} 
+        />
+      ))}
     </div>
   </section>
 );

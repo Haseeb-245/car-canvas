@@ -15,7 +15,6 @@ import * as THREE from 'three';
 
 // 🔧 Local Draco decoder
 const DRACO_PATH = '/draco/';
-useGLTF.preload('/merc/source/merc_draco.glb', DRACO_PATH);
 
 const INTRO_CAR_URL = '/merc/source/merc_draco.glb';
 const SNAP_SOUND = 'https://assets.mixkit.co/sfx/preview/mixkit-mechanical-clutter-snap-1002.mp3';
@@ -53,6 +52,7 @@ const AnimatedScene = ({ scrollYProgress, audioEnabled }) => {
   const word1 = useRef();
   const word2 = useRef();
   const word3 = useRef();
+  const meshesRef = useRef([]);
 
   const { scene } = useGLTF(INTRO_CAR_URL, DRACO_PATH);
   const textures = useTexture({
@@ -64,8 +64,10 @@ const AnimatedScene = ({ scrollYProgress, audioEnabled }) => {
 
   useEffect(() => {
     if (!scene) return;
+    const meshes = [];
     scene.traverse((child) => {
       if (child.isMesh) {
+        meshes.push(child);
         child.visible = false;
         child.castShadow = true;
         child.receiveShadow = true;
@@ -92,6 +94,7 @@ const AnimatedScene = ({ scrollYProgress, audioEnabled }) => {
         }
       }
     });
+    meshesRef.current = meshes;
   }, [scene, textures]);
 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 40, damping: 20 });
@@ -124,8 +127,8 @@ const AnimatedScene = ({ scrollYProgress, audioEnabled }) => {
       });
       carGroup.current.visible = true;
       carGroup.current.rotation.y = -localP * Math.PI * 0.2;
-      const meshes = [];
-      scene.traverse((c) => { if (c.isMesh) meshes.push(c); });
+      
+      const meshes = meshesRef.current;
       meshes.forEach((mesh, i) => {
         const threshold = i / meshes.length;
         if (localP > threshold) {
@@ -139,7 +142,10 @@ const AnimatedScene = ({ scrollYProgress, audioEnabled }) => {
     } else {
       [word1, word2, word3].forEach((ref) => { ref.current.visible = false; });
       carGroup.current.visible = true;
-      scene.traverse((c) => { if (c.isMesh) { c.visible = true; c.position.y = 0; } });
+      meshesRef.current.forEach((mesh) => {
+        mesh.visible = true;
+        mesh.position.y = 0;
+      });
       carGroup.current.rotation.y -= 0.005;
     }
   });
@@ -167,7 +173,9 @@ const TransformerSection = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsCanvasVisible(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          setIsCanvasVisible(true);
+        }
       },
       { threshold: 0.0, rootMargin: '400px' }
     );
@@ -176,16 +184,28 @@ const TransformerSection = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="transformer-container" style={{ height: '500vh', background: '#050506' }}>
+    <div ref={containerRef} id="transformer" className="transformer-container" style={{ height: '500vh', background: '#050506' }}>
       <div className="sticky-wrapper" style={{ position: 'sticky', top: 0, height: '100vh', width: '100%', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, #1a1a1c 0%, #050506 100%)', zIndex: 0 }} />
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '100%', background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.02) 50%, transparent)', zIndex: 1 }} />
         <div style={{ position: 'absolute', inset: 0, zIndex: 5 }}>
           {isCanvasVisible && (
-            <Canvas shadows gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}>
+            <Canvas 
+              shadows 
+              gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
+              dpr={[1, 1.5]}
+            >
               <PerspectiveCamera makeDefault position={[0, 0, 12]} fov={38} />
               <ambientLight intensity={0.6} />
-              <spotLight position={[20, 30, 20]} intensity={1200} angle={0.4} penumbra={1} castShadow color="#ffffff" />
+              <spotLight 
+                position={[20, 30, 20]} 
+                intensity={1200} 
+                angle={0.4} 
+                penumbra={1} 
+                castShadow 
+                color="#ffffff" 
+                shadow-mapSize={[512, 512]}
+              />
               <pointLight position={[0, 5, 5]} intensity={600} color="#ffffff" />
               <React.Suspense fallback={null}>
                 <AnimatedScene scrollYProgress={scrollYProgress} audioEnabled={audioEnabled} />

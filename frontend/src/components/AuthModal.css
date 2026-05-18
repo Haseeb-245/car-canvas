@@ -1,0 +1,439 @@
+/* ─────────────────────── AUTH MODAL OVERLAY ─────────────────────── */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(4, 5, 8, 0.85);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* ─────────────────────── MODAL CONTAINER CARD ─────────────────────── */
+.auth-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  min-height: 520px;
+  background: rgba(14, 17, 24, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), 
+              0 0 50px rgba(0, 255, 204, 0.05);
+}
+
+/* Carbon Fiber Texture Overlay */
+.carbon-grid-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(45deg, #fff 25%, transparent 25%), 
+    linear-gradient(-45deg, #fff 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #fff 75%), 
+    linear-gradient(-45deg, transparent 75%, #fff 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+}
+
+/* ─────────────────────── CLOSE BUTTON ─────────────────────── */
+.auth-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-close-btn:hover {
+  background: #ff3344;
+  border-color: #ff3344;
+  color: #fff;
+  transform: rotate(90deg);
+  box-shadow: 0 0 15px rgba(255, 51, 68, 0.4);
+}
+
+/* ─────────────────────── LEFT DASHBOARD PANEL ─────────────────────── */
+.auth-dashboard-panel {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(16, 20, 30, 0.9) 0%, rgba(8, 10, 15, 0.95) 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Speedometer RPM Dial Gauge styling */
+.gauge-housing {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.speedo-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(135deg);
+}
+
+.speedo-bg-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.04);
+  stroke-width: 6;
+}
+
+.speedo-active-track {
+  fill: none;
+  stroke-width: 6;
+  transition: stroke-dasharray 0.15s ease, stroke 0.3s ease;
+}
+
+.speedo-needle {
+  position: absolute;
+  width: 2px;
+  height: 80px;
+  background: linear-gradient(to top, transparent 40%, #ff3344 40%);
+  bottom: 50%;
+  left: calc(50% - 1px);
+  transform-origin: bottom center;
+  transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 2;
+}
+
+.speedo-needle::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #ff3344;
+  border-radius: 50%;
+  bottom: 0;
+  left: -5px;
+  box-shadow: 0 0 10px rgba(255, 51, 68, 0.6);
+}
+
+.speedo-digital {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  bottom: 40px;
+}
+
+.digit-val {
+  font-family: 'Courier New', monospace;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.05em;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.digit-lbl {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Racer Avatar Grid */
+.avatar-selection-zone {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-heading {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.2em;
+}
+
+.avatar-grid {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+.avatar-pill {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 8px 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.avatar-pill:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.avatar-pill.active {
+  background: rgba(0, 255, 204, 0.1);
+  border-color: #00ffcc;
+  color: #00ffcc;
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
+}
+
+.dashboard-quote {
+  font-size: 0.6rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.25);
+  text-align: center;
+  letter-spacing: 0.08em;
+  max-width: 220px;
+  margin-top: 15px;
+}
+
+/* ─────────────────────── RIGHT FORM PANEL ─────────────────────── */
+.auth-form-panel {
+  flex: 1.2;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.auth-header {
+  margin-bottom: 30px;
+}
+
+.auth-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #c5a059;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.auth-title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+
+/* Dashboard mechanical Slider/Switch tabs */
+.dashboard-switch-container {
+  position: relative;
+  display: flex;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 40px;
+  padding: 4px;
+  margin-bottom: 30px;
+}
+
+.switch-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  padding: 12px 0;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+.switch-tab.active {
+  color: #ffffff;
+}
+
+.switch-slider-pill {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: calc(50% - 4px);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 36px;
+  z-index: 1;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.switch-slider-pill.left {
+  transform: translateX(0);
+}
+
+.switch-slider-pill.right {
+  transform: translateX(100%);
+}
+
+/* Mechanical Input Fields styling */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.auth-input-label {
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.15em;
+}
+
+.auth-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px;
+  color: rgba(255, 255, 255, 0.25);
+  pointer-events: none;
+}
+
+.auth-input-wrapper input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px 16px 16px 48px;
+  color: #ffffff;
+  font-size: 0.85rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-input-wrapper input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.04);
+  border-color: #00ffcc;
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
+}
+
+.password-toggle {
+  position: absolute;
+  right: 16px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.password-toggle:hover {
+  color: #ffffff;
+}
+
+/* Primary ignition/launch button */
+.engine-ignition-btn {
+  position: relative;
+  background: linear-gradient(135deg, #00ffcc 0%, #00b386 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 16px 0;
+  cursor: pointer;
+  overflow: hidden;
+  margin-top: 15px;
+  box-shadow: 0 8px 24px rgba(0, 255, 204, 0.2), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.engine-ignition-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 255, 204, 0.35), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.engine-ignition-btn:active {
+  transform: translateY(0);
+}
+
+.btn-carbon-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  background-image: 
+    linear-gradient(45deg, #000 25%, transparent 25%), 
+    linear-gradient(-45deg, #000 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #000 75%), 
+    linear-gradient(-45deg, transparent 75%, #000 75%);
+  background-size: 6px 6px;
+  background-position: 0 0, 0 3px, 3px -3px, -3px 0px;
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #080c10;
+  font-weight: 900;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.btn-glow-icon {
+  transition: transform 0.3s ease;
+}
+
+.engine-ignition-btn:hover .btn-glow-icon {
+  transform: scale(1.2) rotate(15deg);
+}
+
+/* ─────────────────────── RESPONSIVE STYLING ─────────────────────── */
+@media (max-width: 768px) {
+  .auth-modal-card {
+    flex-direction: column;
+    min-height: auto;
+  }
+  .auth-dashboard-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 30px;
+  }
+  .auth-form-panel {
+    padding: 30px;
+  }
+}

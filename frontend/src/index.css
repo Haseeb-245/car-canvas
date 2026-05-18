@@ -267,7 +267,7 @@ body {
 
 /* â”€â”€ NAVBAR â”€â”€ */
 .navbar {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -276,72 +276,80 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 0 6%;
-  height: 80px;
-  backdrop-filter: blur(20px);
-  background: rgba(10, 10, 11, 0.7);
-  border-bottom: 1px solid var(--border);
+  height: 90px;
+  background: linear-gradient(to bottom, rgba(10, 10, 11, 0.6) 0%, transparent 100%);
+  border-bottom: none;
 }
 
 .logo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem;
-  font-weight: 600;
-  letter-spacing: 0.35em;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
   color: var(--text);
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   text-transform: uppercase;
   text-decoration: none;
 }
 
 .logo-diamond {
   display: inline-block;
-  width: 8px;
-  height: 8px;
-  background: var(--accent);
+  width: 10px;
+  height: 10px;
+  background: #00ffcc;
   transform: rotate(45deg);
-  box-shadow: 0 0 15px var(--accent);
+  box-shadow: 0 0 15px #00ffcc;
   flex-shrink: 0;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 3rem;
+  gap: 1.5rem;
   list-style: none;
 }
 
 .nav-links a {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.25em;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
-  transition: color 0.3s;
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-links a:hover {
-  color: var(--accent);
+  color: #00ffcc;
+  background: rgba(0, 255, 204, 0.08);
+  border: 1px solid rgba(0, 255, 204, 0.2);
 }
 
 .nav-cta {
-  font-size: 0.65rem !important;
+  font-size: 0.85rem !important;
   font-weight: 700 !important;
-  letter-spacing: 0.25em !important;
+  letter-spacing: 0.15em !important;
   text-transform: uppercase !important;
-  color: #000 !important;
-  background: var(--accent) !important;
-  padding: 10px 26px !important;
-  border-radius: var(--r) !important;
-  transition: all 0.3s !important;
+  color: #00ffcc !important;
+  background: rgba(0, 255, 204, 0.08) !important;
+  padding: 12px 28px !important;
+  border: 1px solid rgba(0, 255, 204, 0.3) !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.1) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .nav-cta:hover {
-  background: #fff !important;
+  background: #00ffcc !important;
+  color: #000000 !important;
   transform: translateY(-1px) !important;
-  box-shadow: 0 0 30px rgba(197, 160, 89, 0.3) !important;
+  box-shadow: 0 0 25px rgba(0, 255, 204, 0.4) !important;
 }
 
 /* â”€â”€ HERO OVERLAY â”€â”€ */

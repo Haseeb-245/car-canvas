@@ -1,4 +1,5 @@
 import React, { Suspense, useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { Environment, ContactShadows, PresentationControls, useProgress, MeshReflectorMaterial, Sparkles } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -61,7 +62,7 @@ function ShowroomFloor() {
   );
 }
 
-const Hero = () => {
+const Hero = ({ user, onSignOut, onOpenAuth }) => {
   const { progress } = useProgress();
   const [ready, setReady] = useState(false);
   const [doorsOpen, setDoorsOpen] = useState(false);
@@ -114,11 +115,31 @@ const Hero = () => {
           <span className="logo-diamond" />
           CAR CANVAS
         </div>
-        <ul className="nav-links">
-          <li><a href="#">Showroom</a></li>
-          <li><a href="#">Configure</a></li>
-          <li><a href="#">Performance</a></li>
-          <li><a href="#" className="nav-cta">Book a Drive</a></li>
+        <ul className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <li><a href="#fleet">Showroom</a></li>
+          <li><a href="#fleet">Configure</a></li>
+          <li>
+            <Link to="/feed">
+              Feed
+            </Link>
+          </li>
+          {user ? (
+            <li className="nav-profile-pill" style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <div className="driver-avatar-circle" style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(0, 255, 204, 0.08)', border: '1px solid rgba(0, 255, 204, 0.3)', padding: '10px 22px', borderRadius: '30px', color: '#00ffcc', fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.12em', boxShadow: '0 0 15px rgba(0, 255, 204, 0.1)' }}>
+                <span>🏎️</span>
+                <span>{user.username.toUpperCase()}</span>
+              </div>
+              <button onClick={onSignOut} className="nav-signout-btn" style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.15em', cursor: 'pointer', textTransform: 'uppercase', transition: 'color 0.2s', padding: '8px 12px' }}>
+                SIGN OUT
+              </button>
+            </li>
+          ) : (
+            <li>
+              <button onClick={onOpenAuth} className="nav-cta" style={{ cursor: 'pointer', background: 'none', border: 'none', outline: 'none' }}>
+                SIGN IN
+              </button>
+            </li>
+          )}
         </ul>
       </motion.nav>
 
@@ -199,11 +220,17 @@ const Hero = () => {
           </motion.p>
 
           <motion.div className="cta-row" {...fu(1.75)}>
-            <button className="cta-primary">
-              Configure Yours <ChevronRight size={15} />
+            <button 
+              className="cta-primary"
+              onClick={() => document.getElementById('fleet')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              ENTER SHOWROOM <ChevronRight size={15} />
             </button>
-            <button className="cta-ghost">
-              <Play size={13} /> View Heritage
+            <button 
+              className="cta-ghost"
+              onClick={() => document.getElementById('transformer')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <Play size={13} /> EXPLORE SPECS
             </button>
           </motion.div>
 
