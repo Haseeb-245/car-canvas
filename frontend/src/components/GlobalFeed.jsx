@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './GlobalFeed.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 // Mock Instagram-style Stories
 const MOCK_STORIES = [
   { id: 1, username: 'StanceGod', avatar: '🚗', label: 'GT3 TOURING', img: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=600&q=80', spec: 'Stage 2 ECU · -40mm stance · matte gray bodywrap' },
@@ -27,7 +29,7 @@ export default function GlobalFeed({ user, handleSignOut, onOpenAuth }) {
   const [savedPosts, setSavedPosts] = useState({}); // postId -> bool
 
   const fetchFeed = () => {
-    fetch('http://localhost:5000/api/feed')
+    fetch(`${API_URL}/api/feed`)
       .then(res => res.json())
       .then(data => {
         setFeedData(data);
@@ -45,7 +47,7 @@ export default function GlobalFeed({ user, handleSignOut, onOpenAuth }) {
 
   const handleLike = async (postId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/feed/like/${postId}`, {
+      const response = await fetch(`${API_URL}/api/feed/like/${postId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: user?.username })
@@ -83,7 +85,7 @@ export default function GlobalFeed({ user, handleSignOut, onOpenAuth }) {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/feed/comment/${postId}`, {
+      const response = await fetch(`${API_URL}/api/feed/comment/${postId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: user.username, text })

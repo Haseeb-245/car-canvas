@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment files (keep .env.production committed - it only has the Render URL)
+.env
+.env.local
+.env.development

@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Key, User, Mail, Gauge, Flame, UserCheck, Eye, EyeOff } from 'lucide-react';
 import './AuthModal.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const AuthModal = ({ isOpen, onClose, onSignIn }) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [username, setUsername] = useState('');
@@ -36,7 +38,7 @@ const AuthModal = ({ isOpen, onClose, onSignIn }) => {
     setSuccessMsg('');
 
     const payload = isSignUp ? { username, email, password } : { username, password };
-    const endpoint = isSignUp ? 'http://localhost:5000/api/auth/register' : 'http://localhost:5000/api/auth/login';
+    const endpoint = isSignUp ? `${API_URL}/api/auth/register` : `${API_URL}/api/auth/login`;
 
     try {
       const response = await fetch(endpoint, {

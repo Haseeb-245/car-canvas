@@ -1,4 +1,5 @@
 import './CarConfigurator.css';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 import React, { useState, useRef, useEffect, useMemo, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
@@ -321,7 +322,7 @@ function CarMeshCore({ scene, car, bodyColor, rimColor, height, rotate, bumper, 
   const { invalidate } = useThree();
 
   const sendLog = (type, msg) => {
-    fetch('http://localhost:8080/log', {
+    fetch(`${API_URL}/log`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ type, msg })
@@ -920,7 +921,7 @@ export default function CarConfigurator({ user, onOpenAuth }) {
     if (!queryToSend.trim()) return;
     setSmartLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/ai/smart-configure", {
+      const res = await fetch(`${API_URL}/api/ai/smart-configure`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userQuery: queryToSend, carName: car.name })
@@ -984,7 +985,7 @@ export default function CarConfigurator({ user, onOpenAuth }) {
         }
         prevConfigRef.current = currentConfig;
 
-        const res = await fetch("http://localhost:5000/api/ai/evaluate-build", {
+        const res = await fetch(`${API_URL}/api/ai/evaluate-build`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ carName: car.name, currentConfig, lastModified })
@@ -1004,7 +1005,7 @@ export default function CarConfigurator({ user, onOpenAuth }) {
   // Auto-restore saved garage configuration for this user and car
   useEffect(() => {
     if (user && car) {
-      fetch(`http://localhost:5000/api/cars/saved/${user.username}`)
+      fetch(`${API_URL}/api/cars/saved/${user.username}`)
         .then(res => res.json())
         .then(data => {
           if (Array.isArray(data) && data.length > 0) {
@@ -1068,7 +1069,7 @@ export default function CarConfigurator({ user, onOpenAuth }) {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/api/cars/save', {
+      const response = await fetch(`${API_URL}/api/cars/save`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -1121,7 +1122,7 @@ export default function CarConfigurator({ user, onOpenAuth }) {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/api/feed/publish', {
+      const response = await fetch(`${API_URL}/api/feed/publish`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

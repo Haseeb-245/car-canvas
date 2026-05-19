@@ -1,0 +1,10 @@
+# Backend secrets — never commit
+backend/.env
+backend/.env.local
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Build output
+frontend/dist/
