@@ -12,11 +12,12 @@ import {
   Float
 } from '@react-three/drei';
 import * as THREE from 'three';
+import { GL_PROPS_TRANSFORMER, ADAPTIVE_DPR } from '../utils/r3fOptimizer.js';
 
 // 🔧 Local Draco decoder
 const DRACO_PATH = '/draco/';
 
-const INTRO_CAR_URL = '/merc/source/merc_draco.glb';
+const INTRO_CAR_URL = '/merc/source/mercedes_amg_gt4_final-v1.glb';
 const SNAP_SOUND = 'https://assets.mixkit.co/sfx/preview/mixkit-mechanical-clutter-snap-1002.mp3';
 
 const BackgroundElements = () => {
@@ -192,8 +193,8 @@ const TransformerSection = () => {
           {isCanvasVisible && (
             <Canvas 
               shadows 
-              gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
-              dpr={[1, 1.5]}
+              gl={GL_PROPS_TRANSFORMER}
+              dpr={ADAPTIVE_DPR}
             >
               <PerspectiveCamera makeDefault position={[0, 0, 12]} fov={38} />
               <ambientLight intensity={0.6} />

@@ -115,6 +115,44 @@
   overflow: hidden;
 }
 
+.panel-toggle-tab {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 60px;
+  background: rgba(6, 8, 18, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #c5a059;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1), right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 10px;
+}
+.panel-toggle-tab:hover {
+  background: rgba(197, 160, 89, 0.1);
+  color: #fff;
+}
+.panel-toggle-tab.left { left: 320px; border-left: none; border-radius: 0 8px 8px 0; }
+.panel-toggle-tab.left.collapsed { left: 0; }
+
+.ai-telemetry-sidebar {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), margin 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s;
+  transform: translateX(0);
+  margin-left: 0;
+}
+.ai-telemetry-sidebar.collapsed { 
+  transform: translateX(-100%); 
+  margin-left: -320px; 
+  opacity: 0; 
+  pointer-events: none;
+}
+
+
+
 /* ── VIEWPORT ── */
 .cfg-viewport {
   position: relative;
@@ -529,4 +567,154 @@
   color: #c5a059;
   text-shadow: 0 0 10px rgba(197, 160, 89, 0.25);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ── AI TELEMETRY SIDEBAR ── */
+.ai-telemetry-sidebar {
+  width: 320px;
+  flex-shrink: 0;
+  background: rgba(6, 8, 18, 0.98);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(85, 170, 255, 0.3) transparent;
+  animation: slideInLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.ai-telemetry-sidebar::-webkit-scrollbar { width: 4px; }
+.ai-telemetry-sidebar::-webkit-scrollbar-thumb { background: rgba(85, 170, 255, 0.3); border-radius: 2px; }
+
+.ai-sidebar-header {
+  padding: 16px 20px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(90deg, rgba(85,170,255,0.05), transparent);
+}
+
+.ai-telemetry-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.telemetry-cost {
+  font-size: 16px;
+  font-weight: 800;
+  color: #c5a059;
+  letter-spacing: 0.1em;
+  padding: 10px;
+  background: rgba(197, 160, 89, 0.05);
+  border-left: 2px solid #c5a059;
+}
+
+.ai-rating {
+  font-size: 12px;
+  color: #ffaa30;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ai-performance {
+  font-size: 11px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
+  border-left: 2px solid #55aaff;
+  padding-left: 12px;
+  background: rgba(85, 170, 255, 0.03);
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.telemetry-suggestions {
+  margin-top: 4px;
+}
+
+.suggestion-title {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.suggestion-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.suggestion-badge {
+  font-size: 9px;
+  font-weight: 700;
+  color: #55aaff;
+  background: rgba(85, 170, 255, 0.1);
+  padding: 4px 8px;
+  border-radius: 2px;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.suggestion-reason {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.5;
+}
+
+.telemetry-sourcing {
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+}
+
+.sourcing-title {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: #c5a059;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.ai-loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  gap: 16px;
+}
+.pulse-dot-large {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #55aaff;
+  animation: pulseAi 1.5s infinite alternate;
+}
+@keyframes pulseAi {
+  from { box-shadow: 0 0 5px #55aaff, 0 0 10px #55aaff; opacity: 0.8; transform: scale(0.9); }
+  to { box-shadow: 0 0 15px #55aaff, 0 0 30px #55aaff; opacity: 1; transform: scale(1.1); }
 }

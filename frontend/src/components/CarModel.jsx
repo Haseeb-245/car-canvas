@@ -6,7 +6,7 @@ import * as THREE from 'three';
 // 🔧 Local Draco decoder
 const DRACO_PATH = '/draco/';
 
-const CAR_MODEL_URL = '/source/porsche_draco.glb';
+const CAR_MODEL_URL = '/source/Prosche_final-v6.glb';
 useGLTF.preload(CAR_MODEL_URL, DRACO_PATH);
 
 /* Premium Modern Palette - Aggressive & Powerful */

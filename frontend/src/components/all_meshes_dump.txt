@@ -1,0 +1,447 @@
+=========================================
+ALL MESHES IN E63_custom.glb
+=========================================
+
+Mesh #0: "Meshesdoorrfok0161" (Total Verts: 2235)
+  Prim #0: Mat="Gloss Black" | Verts=2235 | Min=[2.42,1.253,0.723] | Max=[3.657,5.523,5.261]
+
+Mesh #1: "Meshesdoorrfok0291" (Total Verts: 2227)
+  Prim #0: Mat="Gloss Black" | Verts=2227 | Min=[-3.657,1.253,0.723] | Max=[-2.419,5.523,5.261]
+
+Mesh #2: "Mesheswindscreenok0181" (Total Verts: 272)
+  Prim #0: Mat="Glass" | Verts=272 | Min=[-3.031,3.633,-4.651] | Max=[3.031,5.412,-1.266]
+
+Mesh #3: "Meshesdoorrfok0031" (Total Verts: 3301)
+  Prim #0: Mat="Gloss Black" | Verts=3301 | Min=[2.433,1.262,-3.722] | Max=[4.219,5.517,1.176]
+
+Mesh #4: "Meshespaint61" (Total Verts: 8497)
+  Prim #0: Mat="New Material" | Verts=8497 | Min=[-3.888,0.629,-8.158] | Max=[3.888,5.68,8.952]
+
+Mesh #5: "Meshesblack00151" (Total Verts: 480)
+  Prim #0: Mat="Black" | Verts=480 | Min=[-3.372,1.37,-3.525] | Max=[-2.759,4.029,0.62]
+
+Mesh #6: "Meshesblack00231" (Total Verts: 490)
+  Prim #0: Mat="Black" | Verts=490 | Min=[2.873,1.391,0.986] | Max=[3.567,4.024,4.958]
+
+Mesh #7: "Meshesblack00321" (Total Verts: 463)
+  Prim #0: Mat="Meshesdoorrfok0011_diff" | Verts=463 | Min=[2.758,1.37,-3.525] | Max=[3.372,4.029,0.62]
+
+Mesh #8: "Meshesblack101" (Total Verts: 490)
+  Prim #0: Mat="Black" | Verts=490 | Min=[-3.567,1.391,0.986] | Max=[-2.873,4.024,4.958]
+
+Mesh #9: "Meshesblack111" (Total Verts: 1525)
+  Prim #0: Mat="Black" | Verts=1525 | Min=[-2.498,2.467,7.248] | Max=[2.498,4.013,9.398]
+
+Mesh #10: "Meshesblack121" (Total Verts: 7252)
+  Prim #0: Mat="Black" | Verts=7252 | Min=[-3.213,0.999,-4.827] | Max=[3.213,5.532,5.196]
+
+Mesh #11: "Meshesblack91" (Total Verts: 5898)
+  Prim #0: Mat="Black" | Verts=5898 | Min=[-3.184,2.099,-3.865] | Max=[3.184,5.713,9.391]
+
+Mesh #12: "Meshesbonnetok1" (Total Verts: 1118)
+  Prim #0: Mat="Meshesbonnetok1_diff" | Verts=1118 | Min=[-2.911,2.929,-8.671] | Max=[2.911,3.897,-4.006]
+
+Mesh #13: "Meshesbootok00111" (Total Verts: 245)
+  Prim #0: Mat="Black" | Verts=245 | Min=[-1.458,2.475,9.124] | Max=[1.458,3.16,9.359]
+
+Mesh #14: "Meshesbootok0031" (Total Verts: 181)
+  Prim #0: Mat="Gloss Black" | Verts=181 | Min=[-2.52,3.689,8.67] | Max=[2.519,4.113,9.377]
+
+Mesh #15: "Meshesbumprearok0011" (Total Verts: 615)
+  Prim #0: Mat="Meshesdoorrfok0011_diff" | Verts=615 | Min=[-2.876,1.146,9.014] | Max=[2.876,1.477,9.655]
+
+Mesh #16: "Meshesbumprearok0031" (Total Verts: 4542)
+  Prim #0: Mat="Meshesbumprearok0031_diff" | Verts=4542 | Min=[-3.543,0.725,6.828] | Max=[3.543,1.672,9.763]
+
+Mesh #17: "Meshesbumprearok0051" (Total Verts: 374)
+  Prim #0: Mat="0021_DarkRed_2" | Verts=374 | Min=[-2.887,2.096,9.246] | Max=[2.887,2.185,9.603]
+
+Mesh #18: "Meshesbumprearok0071" (Total Verts: 7577)
+  Prim #0: Mat="Meshesbumprearok0031_diff" | Verts=7577 | Min=[-3.536,0.66,-9.861] | Max=[3.536,3.12,-8.016]
+
+Mesh #19: "Meshesbumprearok0091" (Total Verts: 580)
+  Prim #0: Mat="Black" | Verts=580 | Min=[-3.213,0.839,-9.338] | Max=[3.213,2.931,-8.328]
+
+Mesh #20: "Meshesbumprearok1" (Total Verts: 80)
+  Prim #0: Mat="Meshesbumprearok1_diff" | Verts=80 | Min=[-0.098,2.987,-9.578] | Max=[0.098,3.119,-9.439]
+
+Mesh #21: "Meshescaliper1" (Total Verts: 2032)
+  Prim #0: Mat="Meshescaliper1_diff" | Verts=2032 | Min=[3.14,0.824,4.325] | Max=[3.466,2.196,4.981]
+
+Mesh #22: "Meshescaliper2" (Total Verts: 2038)
+  Prim #0: Mat="Meshescaliper1_diff" | Verts=2038 | Min=[-3.466,0.824,4.325] | Max=[-3.14,2.196,4.981]
+
+Mesh #23: "Meshescaliper3" (Total Verts: 2017)
+  Prim #0: Mat="Meshescaliper1_diff" | Verts=2017 | Min=[3.14,0.852,-6.236] | Max=[3.466,2.248,-5.618]
+
+Mesh #24: "Meshescaliper4" (Total Verts: 2036)
+  Prim #0: Mat="Meshescaliper1_diff" | Verts=2036 | Min=[-3.466,0.852,-6.236] | Max=[-3.14,2.248,-5.618]
+
+Mesh #25: "Mesheschassis00111" (Total Verts: 813)
+  Prim #0: Mat="Meshesdoorrfok0011_diff" | Verts=813 | Min=[-3.837,0.628,-8.479] | Max=[3.837,2.923,9.317]
+
+Mesh #26: "Mesheschassis0071" (Total Verts: 1090)
+  Prim #0: Mat="Mesheschassis0171_diff" | Verts=1090 | Min=[-3.036,2.523,-9.172] | Max=[3.038,3.593,-4.742]
+
+Mesh #27: "Mesheschassis00911" (Total Verts: 17156)
+  Prim #0: Mat="Meshesbumprearok0031_diff" | Verts=17156 | Min=[-3.11,2.474,-9.054] | Max=[3.112,3.759,-3.979]
+
+Mesh #28: "Mesheschassis0101" (Total Verts: 2226)
+  Prim #0: Mat="New Material" | Verts=2226 | Min=[-3.299,2.618,-8.223] | Max=[3.299,3.965,-3.83]
+
+Mesh #29: "Mesheschassis0111" (Total Verts: 214)
+  Prim #0: Mat="Mesheschassis0111_diff" | Verts=214 | Min=[-0.568,3.329,-8.175] | Max=[0.552,3.554,-6.722]
+
+Mesh #30: "Mesheschassis0121" (Total Verts: 392)
+  Prim #0: Mat="Black" | Verts=392 | Min=[-2.779,3.094,-9.375] | Max=[2.779,3.577,-5.147]
+
+Mesh #31: "Mesheschassis0131" (Total Verts: 2509)
+  Prim #0: Mat="Mesheschassis0131_diff" | Verts=2509 | Min=[-2.101,2.511,-7.029] | Max=[0.527,3.589,-6.21]
+
+Mesh #32: "Mesheschassis0141" (Total Verts: 804)
+  Prim #0: Mat="Mesheschassis0141_diff" | Verts=804 | Min=[-2.321,2.745,-8.607] | Max=[2.686,3.468,-4.884]
+
+Mesh #33: "Mesheschassis0151" (Total Verts: 44)
+  Prim #0: Mat="Meshesdoorrfok0011_diff" | Verts=44 | Min=[-3.358,2.277,-8.573] | Max=[3.358,3.097,-7.383]
+
+Mesh #34: "Mesheschassis0171" (Total Verts: 4628)
+  Prim #0: Mat="Mesheschassis0171_diff" | Verts=4628 | Min=[-3.417,2.248,-9.114] | Max=[3.417,4.293,9.295]
+
+Mesh #35: "Mesheschassis0181" (Total Verts: 3736)
+  Prim #0: Mat="Cube0181Mtl_37" | Verts=3736 | Min=[-3.316,2.728,7.811] | Max=[3.316,3.556,9.257]
+
+Mesh #36: "Mesheschassis0261" (Total Verts: 317)
+  Prim #0: Mat="Meshesdoorrfok0011_diff" | Verts=317 | Min=[-2.623,2.328,-3.179] | Max=[2.623,3.836,0.759]
+
+Mesh #37: "Mesheschassis0281" (Total Verts: 14674)
+  Prim #0: Mat="Meshesbumprearok0031_diff" | Verts=14674 | Min=[-3.575,1.179,-4.327] | Max=[3.575,5.605,4.935]
+
+Mesh #38: "Mesheschassis0291" (Total Verts: 12337)
+  Prim #0: Mat="Mesheschassis0291_diff" | Verts=12337 | Min=[-3.06,1.114,-4.818] | Max=[3.06,5.116,5.194]
+
+Mesh #39: "Mesheschassis0301" (Total Verts: 5593)
+  Prim #0: Mat="Mesheschassis0301_diff" | Verts=5593 | Min=[-3.014,1.209,-4.702] | Max=[3.043,4.287,4.925]
+
+Mesh #40: "Mesheschassis0311" (Total Verts: 1025)
+  Prim #0: Mat="Mesheschassis0111_diff" | Verts=1025 | Min=[-2.669,2.463,-3.173] | Max=[2.669,4.288,-1.165]
+
+Mesh #41: "Mesheschassis03411" (Total Verts: 35)
+  Prim #0: Mat="0021_DarkRed_2" | Verts=35 | Min=[-0.785,1.809,-0.468] | Max=[0.785,2.213,3.484]
+
+Mesh #42: "Mesheschrome00161" (Total Verts: 3540)
+  Prim #0: Mat="Chrome" | Verts=3540 | Min=[-2.934,1.089,9.088] | Max=[2.934,1.447,9.861]
+
+Mesh #43: "Mesheschrome00171" (Total Verts: 10220)
+  Prim #0: Mat="Chrome" | Verts=10220 | Min=[-2.866,2.464,-8.75] | Max=[2.871,3.595,-5.596]
+
+Mesh #44: "Mesheschrome00241" (Total Verts: 490)
+  Prim #0: Mat="Chrome" | Verts=490 | Min=[-3.702,3.46,2.198] | Max=[-2.879,3.628,4.373]
+
+Mesh #45: "Mesheschrome00251" (Total Verts: 3925)
+  Prim #0: Mat="Chrome" | Verts=3925 | Min=[-3.315,2.337,-9.024] | Max=[3.315,3.031,-7.401]
+
+Mesh #46: "Mesheschrome00331" (Total Verts: 490)
+  Prim #0: Mat="Chrome" | Verts=490 | Min=[2.879,3.46,2.198] | Max=[3.702,3.628,4.373]
+
+Mesh #47: "Mesheschrome00341" (Total Verts: 275)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=275 | Min=[-3.277,2.343,-9.019] | Max=[3.277,3.023,-7.866]
+
+Mesh #48: "Mesheschrome00411" (Total Verts: 764)
+  Prim #0: Mat="Chrome" | Verts=764 | Min=[2.822,3.446,-2.848] | Max=[4.194,4.486,0.489]
+
+Mesh #49: "Mesheschrome00421" (Total Verts: 6782)
+  Prim #0: Mat="Chrome" | Verts=6782 | Min=[-3.482,1.214,-3.187] | Max=[3.482,5.148,5.039]
+
+Mesh #50: "Mesheschrome101" (Total Verts: 1300)
+  Prim #0: Mat="Chrome" | Verts=1300 | Min=[-1.489,2.37,9.155] | Max=[1.488,2.513,9.36]
+
+Mesh #51: "Mesheschrome111" (Total Verts: 763)
+  Prim #0: Mat="Chrome" | Verts=763 | Min=[-4.194,3.446,-2.848] | Max=[-2.822,4.483,0.489]
+
+Mesh #52: "Mesheschrome121" (Total Verts: 3066)
+  Prim #0: Mat="Chrome" | Verts=3066 | Min=[-1.898,1.981,-9.81] | Max=[1.898,2.867,-9.179]
+
+Mesh #53: "Mesheschrome131" (Total Verts: 2135)
+  Prim #0: Mat="Chrome" | Verts=2135 | Min=[-2.381,2.333,8.903] | Max=[2.381,4.002,9.518]
+
+Mesh #54: "Mesheschrome141" (Total Verts: 674)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=674 | Min=[-2.414,2.529,-8.86] | Max=[2.343,3.175,-7.836]
+
+Mesh #55: "Mesheschrome151" (Total Verts: 2947)
+  Prim #0: Mat="Chrome" | Verts=2947 | Min=[-3.702,0.758,-4.62] | Max=[3.702,3.017,3.395]
+
+Mesh #56: "Mesheschrome91" (Total Verts: 246)
+  Prim #0: Mat="Chrome" | Verts=246 | Min=[3.791,0.775,5.154] | Max=[3.841,1.432,6.189]
+
+Mesh #57: "Mesheschrome92" (Total Verts: 246)
+  Prim #0: Mat="Chrome" | Verts=246 | Min=[-3.79,0.834,4.238] | Max=[-3.74,1.49,5.273]
+
+Mesh #58: "Mesheschrome93" (Total Verts: 246)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=246 | Min=[3.842,0.935,-6.536] | Max=[3.892,1.592,-5.501]
+
+Mesh #59: "Mesheschrome94" (Total Verts: 246)
+  Prim #0: Mat="Chrome" | Verts=246 | Min=[-3.878,0.935,-7.452] | Max=[-3.828,1.592,-6.417]
+
+Mesh #60: "Meshesdoorlrok0061" (Total Verts: 330)
+  Prim #0: Mat="Mesheschassis0301_diff" | Verts=330 | Min=[-3.384,3.158,1.11] | Max=[-2.788,4.067,4.734]
+
+Mesh #61: "Meshesdoorlrok0071" (Total Verts: 27)
+  Prim #0: Mat="Mesheschassis0111_diff" | Verts=27 | Min=[-2.974,3.199,1.293] | Max=[-2.849,3.726,3.848]
+
+Mesh #62: "Meshesdoorrfok0011" (Total Verts: 27)
+  Prim #0: Mat="Meshesdoorrfok0011_diff" | Verts=27 | Min=[2.822,1.851,-3.338] | Max=[3.268,2.472,-1.128]
+
+Mesh #63: "Meshesdoorrfok0051" (Total Verts: 922)
+  Prim #0: Mat="Mesheschassis0291_diff" | Verts=922 | Min=[2.637,2.379,-3.464] | Max=[3.345,3.568,0.107]
+
+Mesh #64: "Meshesdoorrfok0061" (Total Verts: 217)
+  Prim #0: Mat="Mesheschassis0301_diff" | Verts=217 | Min=[2.741,2.3,-3.048] | Max=[3.376,4.049,0.413]
+
+Mesh #65: "Meshesdoorrfok0071" (Total Verts: 142)
+  Prim #0: Mat="Mesheschassis0111_diff" | Verts=142 | Min=[2.601,3.039,-3.451] | Max=[3.335,3.932,-0.341]
+
+Mesh #66: "Meshesdoorrfok0091" (Total Verts: 284)
+  Prim #0: Mat="New Material 2" | Verts=284 | Min=[2.661,3.003,-3.467] | Max=[3.494,4.247,-0.3]
+
+Mesh #67: "Meshesdoorrfok0101" (Total Verts: 40)
+  Prim #0: Mat="Meshesdoorrfok0101_diff" | Verts=40 | Min=[2.829,3.005,-2.266] | Max=[2.971,3.748,-1.691]
+
+Mesh #68: "Meshesdoorrfok0111" (Total Verts: 467)
+  Prim #0: Mat="Mesheschassis0131_diff" | Verts=467 | Min=[2.75,3.462,-2.773] | Max=[3.147,4.357,-2.324]
+
+Mesh #69: "Meshesdoorrfok0141" (Total Verts: 27)
+  Prim #0: Mat="Meshesdoorrfok0011_diff" | Verts=27 | Min=[2.984,1.833,1.276] | Max=[3.262,2.173,2.675]
+
+Mesh #70: "Meshesdoorrfok0181" (Total Verts: 699)
+  Prim #0: Mat="Mesheschassis0291_diff" | Verts=699 | Min=[2.705,2.415,1.245] | Max=[3.109,3.557,4.02]
+
+Mesh #71: "Meshesdoorrfok0191" (Total Verts: 191)
+  Prim #0: Mat="Mesheschassis0301_diff" | Verts=191 | Min=[2.8,3.154,1.104] | Max=[3.396,4.064,4.728]
+
+Mesh #72: "Meshesdoorrfok0201" (Total Verts: 16)
+  Prim #0: Mat="Mesheschassis0111_diff" | Verts=16 | Min=[2.861,3.195,1.287] | Max=[2.986,3.723,3.842]
+
+Mesh #73: "Meshesdoorrfok0221" (Total Verts: 107)
+  Prim #0: Mat="New Material 2" | Verts=107 | Min=[2.87,3.148,1.296] | Max=[3.049,3.571,3.86]
+
+Mesh #74: "Meshesdoorrfok0231" (Total Verts: 34)
+  Prim #0: Mat="Meshesdoorrfok0101_diff" | Verts=34 | Min=[2.88,2.726,2.437] | Max=[3.013,3.602,2.517]
+
+Mesh #75: "Meshesdoorrfok0241" (Total Verts: 152)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=152 | Min=[3.378,3.096,0.758] | Max=[3.491,3.299,0.822]
+
+Mesh #76: "Meshesdoorrfok0251" (Total Verts: 28)
+  Prim #0: Mat="Mesheschassis0131_diff" | Verts=28 | Min=[2.894,3.262,1.501] | Max=[2.967,3.618,2.124]
+
+Mesh #77: "Meshesdoorrfok0271" (Total Verts: 27)
+  Prim #0: Mat="Meshesdoorrfok0011_diff" | Verts=27 | Min=[-3.262,1.833,1.276] | Max=[-2.984,2.173,2.675]
+
+Mesh #78: "Meshesdoorrfok0311" (Total Verts: 702)
+  Prim #0: Mat="Mesheschassis0291_diff" | Verts=702 | Min=[-3.109,2.415,1.245] | Max=[-2.705,3.557,4.02]
+
+Mesh #79: "Meshesdoorrfok0361" (Total Verts: 34)
+  Prim #0: Mat="Meshesdoorrfok0101_diff" | Verts=34 | Min=[-3.013,2.726,2.437] | Max=[-2.88,3.602,2.517]
+
+Mesh #80: "Meshesdoorrfok0371" (Total Verts: 152)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=152 | Min=[-3.491,3.096,0.758] | Max=[-3.378,3.299,0.822]
+
+Mesh #81: "Meshesdoorrfok0381" (Total Verts: 28)
+  Prim #0: Mat="Mesheschassis0131_diff" | Verts=28 | Min=[-2.955,3.262,1.501] | Max=[-2.881,3.618,2.124]
+
+Mesh #82: "Meshesdoorrfok0401" (Total Verts: 27)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=27 | Min=[-3.268,1.851,-3.338] | Max=[-2.822,2.472,-1.128]
+
+Mesh #83: "Meshesdoorrfok0441" (Total Verts: 922)
+  Prim #0: Mat="Mesheschassis0291_diff" | Verts=922 | Min=[-3.345,2.379,-3.464] | Max=[-2.637,3.568,0.107]
+
+Mesh #84: "Meshesdoorrfok0451" (Total Verts: 198)
+  Prim #0: Mat="Mesheschassis0301_diff" | Verts=198 | Min=[-3.376,2.436,-3.048] | Max=[-2.741,4.049,0.413]
+
+Mesh #85: "Meshesdoorrfok0461" (Total Verts: 145)
+  Prim #0: Mat="Mesheschassis0111_diff" | Verts=145 | Min=[-3.335,3.039,-3.451] | Max=[-2.601,3.932,-0.341]
+
+Mesh #86: "Meshesdoorrfok0491" (Total Verts: 88)
+  Prim #0: Mat="Meshesdoorrfok0491_diff" | Verts=88 | Min=[-3.008,2.71,-2.266] | Max=[-2.829,3.748,-1.48]
+
+Mesh #87: "Meshesdoorrfok0501" (Total Verts: 454)
+  Prim #0: Mat="Mesheschassis0131_diff" | Verts=454 | Min=[-3.147,3.462,-2.773] | Max=[-2.75,4.357,-2.324]
+
+Mesh #88: "Meshese7e7e71" (Total Verts: 116)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=116 | Min=[-0.446,2.751,-2.534] | Max=[0.446,2.872,-2.4]
+
+Mesh #89: "MeshesglassR11" (Total Verts: 962)
+  Prim #0: Mat="Red Glass" | Verts=962 | Min=[-3.352,2.722,7.808] | Max=[3.352,3.561,9.301]
+
+Mesh #90: "MeshesglassW0011" (Total Verts: 146)
+  Prim #0: Mat="glass_18" | Verts=146 | Min=[-3.273,2.82,8.389] | Max=[3.273,3.065,9.257]
+
+Mesh #91: "MeshesglassW1" (Total Verts: 513)
+  Prim #0: Mat="Glass" | Verts=513 | Min=[-3.397,2.276,-9.142] | Max=[3.397,3.101,-7.844]
+
+Mesh #92: "Meshesindicatorlfl00031" (Total Verts: 319)
+  Prim #0: Mat="Mesheslights01411_diff" | Verts=319 | Min=[-3.197,2.416,-8.442] | Max=[-2.198,3.069,9.193]
+
+Mesh #93: "Meshesindicatorlfl01" (Total Verts: 319)
+  Prim #0: Mat="Mesheslights01411_diff" | Verts=319 | Min=[2.198,2.416,-8.442] | Max=[3.197,3.069,9.193]
+
+Mesh #94: "Mesheslights00131" (Total Verts: 284)
+  Prim #0: Mat="New Material 2" | Verts=284 | Min=[-3.494,3.003,-3.467] | Max=[-2.661,4.247,-0.3]
+
+Mesh #95: "Mesheslights00141" (Total Verts: 31)
+  Prim #0: Mat="Mesheslights01411_diff" | Verts=31 | Min=[-3.19,3.076,8.222] | Max=[-2.372,3.302,9.03]
+
+Mesh #96: "Mesheslights00221" (Total Verts: 22)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=22 | Min=[3.634,4.102,-2.833] | Max=[4.176,4.224,-2.148]
+
+Mesh #97: "Mesheslights00231" (Total Verts: 30)
+  Prim #0: Mat="Mesheslights01411_diff" | Verts=30 | Min=[-3.16,3.347,8.082] | Max=[-2.516,3.502,8.875]
+
+Mesh #98: "Mesheslights00321" (Total Verts: 22)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=22 | Min=[-4.176,4.102,-2.834] | Max=[-3.635,4.224,-2.148]
+
+Mesh #99: "Mesheslights00331" (Total Verts: 31)
+  Prim #0: Mat="Mesheslights01411_diff" | Verts=31 | Min=[2.372,3.076,8.222] | Max=[3.19,3.302,9.03]
+
+Mesh #100: "Mesheslights00421" (Total Verts: 30)
+  Prim #0: Mat="Mesheslights01411_diff" | Verts=30 | Min=[2.516,3.347,8.082] | Max=[3.16,3.502,8.875]
+
+Mesh #101: "Mesheslights00521" (Total Verts: 164)
+  Prim #0: Mat="Mesheslights01411_diff" | Verts=164 | Min=[-3.126,3.359,8.022] | Max=[-2.549,3.508,8.736]
+
+Mesh #102: "Mesheslights00621" (Total Verts: 196)
+  Prim #0: Mat="Mesheslights01411_diff" | Verts=196 | Min=[-3.142,3.091,8.171] | Max=[-2.425,3.308,8.914]
+
+Mesh #103: "Mesheslights00711" (Total Verts: 8)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=8 | Min=[-3.098,3.466,8.099] | Max=[-3.048,3.516,8.149]
+
+Mesh #104: "Mesheslights0081" (Total Verts: 164)
+  Prim #0: Mat="Mesheslights01411_diff" | Verts=164 | Min=[2.549,3.359,8.022] | Max=[3.126,3.508,8.736]
+
+Mesh #105: "Mesheslights00911" (Total Verts: 193)
+  Prim #0: Mat="Mesheslights01411_diff" | Verts=193 | Min=[2.425,3.091,8.171] | Max=[3.142,3.308,8.914]
+
+Mesh #106: "Mesheslights01011" (Total Verts: 276)
+  Prim #0: Mat="Mesheslights01411_diff" | Verts=276 | Min=[-3.185,2.972,7.199] | Max=[3.185,4.299,9.062]
+
+Mesh #107: "Mesheslights01111" (Total Verts: 927)
+  Prim #0: Mat="New Material 2" | Verts=927 | Min=[-2.676,2.397,-3] | Max=[2.674,3.345,-1.165]
+
+Mesh #108: "Mesheslights01211" (Total Verts: 10)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=10 | Min=[-3.037,2.493,-8.989] | Max=[-2.221,3.017,-8.182]
+
+Mesh #109: "Mesheslights01311" (Total Verts: 474)
+  Prim #0: Mat="Mesheslights01411_diff" | Verts=474 | Min=[-3.288,2.34,-9.034] | Max=[3.288,3.025,-7.864]
+
+Mesh #110: "Mesheslights01411" (Total Verts: 578)
+  Prim #0: Mat="Mesheslights01411_diff" | Verts=578 | Min=[-3.197,2.414,-8.445] | Max=[3.197,3.069,9.193]
+
+Mesh #111: "Mesheslights0151" (Total Verts: 398)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=398 | Min=[-3.289,2.339,-9.034] | Max=[3.289,3.026,-7.844]
+
+Mesh #112: "Mesheslights51" (Total Verts: 107)
+  Prim #0: Mat="New Material 2" | Verts=107 | Min=[-3.049,3.148,1.296] | Max=[-2.87,3.571,3.86]
+
+Mesh #113: "Mesheslights61" (Total Verts: 8)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=8 | Min=[3.048,3.466,8.099] | Max=[3.098,3.516,8.149]
+
+Mesh #114: "Meshespaint2" (Total Verts: 1446)
+  Prim #0: Mat="New Material" | Verts=1446 | Min=[-3.756,1.094,-3.821] | Max=[-3.065,4.036,0.868]
+
+Mesh #115: "Meshespaint3" (Total Verts: 1587)
+  Prim #0: Mat="New Material" | Verts=1587 | Min=[-3.739,1.102,0.581] | Max=[-2.965,4.027,5.267]
+
+Mesh #116: "Meshespaint4" (Total Verts: 1590)
+  Prim #0: Mat="New Material" | Verts=1590 | Min=[2.965,1.102,0.581] | Max=[3.739,4.027,5.267]
+
+Mesh #117: "Meshespaint5" (Total Verts: 1452)
+  Prim #0: Mat="New Material" | Verts=1452 | Min=[3.065,1.094,-3.821] | Max=[3.756,4.036,0.868]
+
+Mesh #118: "Meshessalon0011" (Total Verts: 20)
+  Prim #0: Mat="Meshesdoorrfok0011_diff" | Verts=20 | Min=[-0.105,2.287,9.226] | Max=[0.104,2.382,9.385]
+
+Mesh #119: "Meshessalon0031" (Total Verts: 1952)
+  Prim #0: Mat="Meshesbumprearok0031_diff" | Verts=1952 | Min=[-2.678,2.265,-2.504] | Max=[2.679,4.166,9.503]
+
+Mesh #120: "Meshessalon0041" (Total Verts: 94)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=94 | Min=[-2.331,2.36,8.94] | Max=[2.331,3.48,9.565]
+
+Mesh #121: "Meshessalon0051" (Total Verts: 161)
+  Prim #0: Mat="Mesheschassis0291_diff" | Verts=161 | Min=[-3.047,1.198,-4.729] | Max=[3.08,2.239,-1.626]
+
+Mesh #122: "Meshessalon0061" (Total Verts: 55)
+  Prim #0: Mat="Mesheschassis0301_diff" | Verts=55 | Min=[-2.637,2.339,6.438] | Max=[2.411,2.403,9.199]
+
+Mesh #123: "Meshessalon0111" (Total Verts: 204)
+  Prim #0: Mat="Meshessalon0111_diff" | Verts=204 | Min=[-3.445,1.215,-3.744] | Max=[3.445,3.023,4.388]
+
+Mesh #124: "Meshessalon1" (Total Verts: 237)
+  Prim #0: Mat="Meshessalon1_diff" | Verts=237 | Min=[-2.51,2.491,-3.182] | Max=[0.458,5.448,-0.396]
+
+Mesh #125: "Meshestr0011" (Total Verts: 24)
+  Prim #0: Mat="Mesheschrome93Mat" | Verts=24 | Min=[-3.445,1.228,-2.339] | Max=[3.445,3.805,2.364]
+
+Mesh #126: "Meshestr0021" (Total Verts: 800)
+  Prim #0: Mat="Meshestr0021_diff" | Verts=800 | Min=[-2.573,1.582,-1.574] | Max=[2.573,5.113,1.121]
+
+Mesh #127: "Meshestr1" (Total Verts: 190)
+  Prim #0: Mat="Black" | Verts=190 | Min=[-2.57,2.15,-3.196] | Max=[0.652,3.958,0.839]
+
+Mesh #128: "Mesheswheel0021" (Total Verts: 466)
+  Prim #0: Mat="Mesheswheel0021_diff" | Verts=466 | Min=[2.669,0,3.874] | Max=[3.801,2.672,6.553]
+
+Mesh #129: "Mesheswheel0023" (Total Verts: 466)
+  Prim #0: Mat="Mesheswheel0021_diff" | Verts=466 | Min=[2.72,0.16,-7.816] | Max=[3.852,2.832,-5.137]
+
+Mesh #130: "Mesheswheel0024" (Total Verts: 466)
+  Prim #0: Mat="Mesheswheel0021_diff" | Verts=466 | Min=[-3.837,0.16,-7.816] | Max=[-2.705,2.832,-5.137]
+
+Mesh #131: "Mesheswindows1" (Total Verts: 118)
+  Prim #0: Mat="Glass" | Verts=118 | Min=[2.588,3.887,-2.874] | Max=[4.211,5.421,0.907]
+
+Mesh #132: "Mesheswindows2" (Total Verts: 40)
+  Prim #0: Mat="Glass" | Verts=40 | Min=[2.558,3.983,1.192] | Max=[3.305,5.436,5.171]
+
+Mesh #133: "Mesheswindows3" (Total Verts: 38)
+  Prim #0: Mat="Glass" | Verts=38 | Min=[-3.305,3.983,1.192] | Max=[-2.558,5.437,5.171]
+
+Mesh #134: "Mesheswindows4" (Total Verts: 117)
+  Prim #0: Mat="Glass" | Verts=117 | Min=[-4.211,3.887,-2.874] | Max=[-2.588,5.421,0.907]
+
+Mesh #135: "Mesheswindscreenok0001" (Total Verts: 321)
+  Prim #0: Mat="New Material 1" | Verts=321 | Min=[-2.316,5.2,-0.618] | Max=[2.316,5.787,4.986]
+
+Mesh #136: "Mesheswindscreenok0211" (Total Verts: 312)
+  Prim #0: Mat="New Material 1" | Verts=312 | Min=[-2.43,5.261,-1.478] | Max=[2.43,5.641,-0.594]
+
+Mesh #137: "Mesheswindscreenok0311" (Total Verts: 238)
+  Prim #0: Mat="Glass" | Verts=238 | Min=[-2.672,4.143,4.923] | Max=[2.672,5.332,7.562]
+
+Mesh #138: "Cube.001" (Total Verts: 24)
+  Prim #0: Mat="speedmtr" | Verts=24 | Min=[-1.931,3.522,-3.194] | Max=[-0.852,3.912,-3.074]
+
+Mesh #139: "Mesheswindscreenok0321" (Total Verts: 254)
+  Prim #0: Mat="New Material 1" | Verts=254 | Min=[-2.084,5.165,2.47] | Max=[2.084,5.766,4.996]
+
+Mesh #140: "Meshesdoorrfok0421" (Total Verts: 3621)
+  Prim #0: Mat="Gloss Black" | Verts=3621 | Min=[-4.219,1.262,-3.722] | Max=[-2.433,5.517,1.176]
+
+Mesh #141: "Mesheschassis00311" (Total Verts: 3605)
+  Prim #0: Mat="Gloss Black" | Verts=3605 | Min=[-3.704,2.836,-5.083] | Max=[3.704,5.772,7.562]
+
+Mesh #142: "Meshespaint41" (Total Verts: 6614)
+  Prim #0: Mat="New Material" | Verts=6614 | Min=[-3.858,0.662,-9.861] | Max=[3.858,3.272,-7.544]
+
+Mesh #143: "Meshespaint0011" (Total Verts: 4345)
+  Prim #0: Mat="New Material" | Verts=4345 | Min=[-3.776,0.868,6.186] | Max=[3.776,3.546,9.779]
+
+Mesh #144: "Meshespaint51" (Total Verts: 3458)
+  Prim #0: Mat="New Material" | Verts=3458 | Min=[-3.31,2.951,-9.389] | Max=[3.308,4.056,-3.979]
+
+Mesh #145: "Meshesblack82" (Total Verts: 6654)
+  Prim #0: Mat="Black" | Verts=6654 | Min=[-3.865,0.243,-7.571] | Max=[3.88,2.598,6.308]
+
+Mesh #146: "Meshespaint1" (Total Verts: 2314)
+  Prim #0: Mat="New Material" | Verts=2314 | Min=[-2.705,2.369,6.169] | Max=[2.705,4.222,9.621]
+
+Mesh #147: "Mesheswheel0022" (Total Verts: 466)
+  Prim #0: Mat="Mesheswheel0021_diff" | Verts=466 | Min=[-3.75,0.058,3.874] | Max=[-2.618,2.73,6.553]

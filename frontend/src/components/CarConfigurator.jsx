@@ -2,18 +2,19 @@ import './CarConfigurator.css';
 import React, { useState, useRef, useEffect, useMemo, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useGLTF, useFBX, Environment, ContactShadows, OrbitControls, Center, useTexture, MeshReflectorMaterial } from '@react-three/drei';
+import { useGLTF, useFBX, Environment, ContactShadows, OrbitControls, Center, useTexture, MeshReflectorMaterial, Html } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as THREE from 'three';
+import { GL_PROPS_FULL, ADAPTIVE_DPR, useKTX2Setup } from '../utils/r3fOptimizer.js';
 
 // Helper to darken/lighten a hex color for procedural digital camo pattern
 function adjustColor(hex, percent) {
-  const num = parseInt(hex.replace("#",""), 16),
-        amt = Math.round(2.55 * percent),
-        R = (num >> 16) + amt,
-        G = (num >> 8 & 0x00FF) + amt,
-        B = (num & 0x0000FF) + amt;
-  return "#" + (0x1000000 + (R<255?R<0?0:R:255)*0x10000 + (G<255?G<0?0:G:255)*0x100 + (B<255?B<0?0:B:255)).toString(16).slice(1);
+  const num = parseInt(hex.replace("#", ""), 16),
+    amt = Math.round(2.55 * percent),
+    R = (num >> 16) + amt,
+    G = (num >> 8 & 0x00FF) + amt,
+    B = (num & 0x0000FF) + amt;
+  return "#" + (0x1000000 + (R < 255 ? R < 0 ? 0 : R : 255) * 0x10000 + (G < 255 ? G < 0 ? 0 : G : 255) * 0x100 + (B < 255 ? B < 0 ? 0 : B : 255)).toString(16).slice(1);
 }
 
 // Procedural digital camo texture generator matching the paint color
@@ -61,13 +62,28 @@ function isWheelPart(o) {
   const matName = o.material ? (Array.isArray(o.material) ? o.material[0].name || '' : o.material.name || '').toLowerCase() : '';
   const parentName = o.parent && o.parent.name ? o.parent.name.toLowerCase() : '';
 
+  // Explicitly do not match B-pillars/door frames
+  if (
+    meshName.includes('meshesblack82') ||
+    meshName.includes('meshesblack101') ||
+    meshName.includes('meshesblack00231') ||
+    meshName.includes('meshesblack00151') ||
+    meshName.includes('meshesblack00321')
+  ) {
+    return false;
+  }
+
+  // E63 Custom brake calipers with suffix-safe checks
+  const isE63Wheel = meshName.includes('meshescaliper');
+
   return (
-    meshName.includes('wheel') || 
-    meshName.includes('rim') || 
-    meshName.includes('tire') || 
-    meshName.includes('tyre') || 
-    meshName.includes('brake') || 
-    meshName.includes('caliper') || 
+    isE63Wheel ||
+    meshName.includes('wheel') ||
+    meshName.includes('rim') ||
+    meshName.includes('tire') ||
+    meshName.includes('tyre') ||
+    meshName.includes('brake') ||
+    meshName.includes('caliper') ||
     meshName.includes('hub') ||
     meshName.includes('disc') ||
     matName.includes('wheel') ||
@@ -89,12 +105,12 @@ const DRACO_PATH = '/draco/';
 
 /* ─── Car data (mirrors CarSelection) ─── */
 const CAR_DATA = [
-  { id: 1, name: '911 GT3 RS', brand: 'PORSCHE', model: '/source/porsche_draco.glb', accentColor: '#66aaff', goldTint: '#c5a059', specs: { power: '518 HP', speed: '296 km/h', accel: '3.2s', engine: 'Flat-6 4.0L' } },
-  { id: 2, name: 'AMG GT4', brand: 'MERCEDES', model: '/merc/source/merc_draco.glb', accentColor: '#88cc66', goldTint: '#8fad5a', modelScale: 0.82, specs: { power: '730 HP', speed: '315 km/h', accel: '2.9s', engine: 'V8 4.0L Biturbo' } },
-  { id: 3, name: 'Supra A80', brand: 'TOYOTA', model: '/supra/source/supra_draco.glb', accentColor: '#ff6622', goldTint: '#c5a059', specs: { power: '320 HP', speed: '285 km/h', accel: '4.6s', engine: 'Inline-6 3.0L' } },
+  { id: 1, name: '911 GT3 RS', brand: 'PORSCHE', model: '/source/Prosche_final-v6.glb', accentColor: '#66aaff', goldTint: '#c5a059', specs: { power: '518 HP', speed: '296 km/h', accel: '3.2s', engine: 'Flat-6 4.0L' } },
+  { id: 2, name: 'AMG GT4', brand: 'MERCEDES', model: '/merc/source/mercedes_amg_gt4_final-v1.glb', accentColor: '#88cc66', goldTint: '#8fad5a', modelScale: 0.82, specs: { power: '730 HP', speed: '315 km/h', accel: '2.9s', engine: 'V8 4.0L Biturbo' } },
+  { id: 3, name: 'Supra A80', brand: 'TOYOTA', model: '/supra/source/supra_custom_draco.glb', accentColor: '#ff6622', goldTint: '#c5a059', specs: { power: '320 HP', speed: '285 km/h', accel: '4.6s', engine: 'Inline-6 3.0L' } },
   { id: 4, name: 'Skyline GT-R R34', brand: 'NISSAN', model: '/r34/source/r34_custom_draco.glb', accentColor: '#ff3344', goldTint: '#cc3344', specs: { power: '276 HP', speed: '250 km/h', accel: '4.0s', engine: 'RB26DETT' } },
-  { id: 5, name: 'AMG E63 S', brand: 'MERCEDES', model: '/e%2063/source/e63_draco.glb', accentColor: '#ffaa00', goldTint: '#c5a059', specs: { power: '612 HP', speed: '300 km/h', accel: '3.4s', engine: 'V8 4.0L Biturbo' } },
-  { id: 6, name: 'Supra MkIV', brand: 'TOYOTA', model: '/supra/source/supra_draco.glb', accentColor: '#cc44ff', goldTint: '#9955cc', specs: { power: '280 HP', speed: '270 km/h', accel: '5.1s', engine: 'Inline-6 2JZ-GTE' } },
+  { id: 5, name: 'AMG E63 S', brand: 'MERCEDES', model: '/e%2063/source/e63_custom_draco.glb?v=5', accentColor: '#ffaa00', goldTint: '#c5a059', specs: { power: '612 HP', speed: '300 km/h', accel: '3.4s', engine: 'V8 4.0L Biturbo' } },
+  { id: 6, name: 'Supra MkIV', brand: 'TOYOTA', model: '/supra/source/supra_custom_draco.glb', accentColor: '#cc44ff', goldTint: '#9955cc', specs: { power: '280 HP', speed: '270 km/h', accel: '5.1s', engine: 'Inline-6 2JZ-GTE' } },
 ];
 
 // Preload models for configurator
@@ -150,6 +166,21 @@ const R34_RIM_STYLES = [
   { label: 'Nismo LMGT4', icon: '◈' }
 ];
 
+const E63_BUMPER_OPTIONS = ['Stock Bumper', 'Carbon Splitter Aero'];
+const E63_HOOD_OPTIONS = ['Factory Hood', 'Carbon Bonnet'];
+const E63_SPOILER_OPTIONS = ['Stock Trunk', 'Custom Boot Lip', 'Performance Wing'];
+const E63_RIM_STYLES = [
+  { label: 'Stock Rims', icon: '◎' },
+  { label: 'Performance 20"', icon: '✦' }
+];
+
+const SUPRA_BUMPER_OPTIONS = ['Stock Bumper', 'Varis Front Bumper'];
+const SUPRA_HOOD_OPTIONS = ['Stock Hood', 'TRD Vented Bonnet'];
+const SUPRA_SPOILER_OPTIONS = ['Spoiler Deleted', 'TRD Wing'];
+const SUPRA_RIM_STYLES = [
+  { label: 'Stock Alloys', icon: '◎' }
+];
+
 const DEFAULT_BUMPER_OPTIONS = ['Stock', 'Aero Kit', 'Wide Body', 'Race Spec', 'Splitter'];
 const DEFAULT_RIM_STYLES = [
   { label: 'Stock', icon: '◎' },
@@ -170,7 +201,7 @@ const TUNING_OPTIONS = [
 function isR34StockRim(o) {
   if (!o) return false;
   const meshName = (o.name || '').toLowerCase();
-  
+
   let matName = '';
   if (o.material) {
     if (Array.isArray(o.material)) {
@@ -179,25 +210,25 @@ function isR34StockRim(o) {
       matName = o.material.name.toLowerCase();
     }
   }
-  
-  if (meshName.includes('rims_stock') || matName.includes('nismo_alloy') || meshName.includes('nismo_alloy')) {
+
+  if (meshName.includes('rims_stock') || meshName.includes('stock_rims') || matName.includes('nismo_alloy') || meshName.includes('nismo_alloy')) {
     return true;
   }
-  
+
   let p = o.parent;
   for (let i = 0; i < 3 && p; i++) {
     const pName = (p.name || '').toLowerCase();
     if (pName.includes('rims_stock')) return true;
     p = p.parent;
   }
-  
+
   return false;
 }
 
 function isR34StockTyre(o) {
   if (!o) return false;
   const meshName = (o.name || '').toLowerCase();
-  
+
   let matName = '';
   if (o.material) {
     if (Array.isArray(o.material)) {
@@ -206,18 +237,18 @@ function isR34StockTyre(o) {
       matName = o.material.name.toLowerCase();
     }
   }
-  
+
   if (meshName.includes('tireblur') || meshName.includes('natireblur') || meshName.includes('tyre_stock') || matName.includes('tireblur') || matName.includes('natireblur')) {
     return true;
   }
-  
+
   let p = o.parent;
   for (let i = 0; i < 3 && p; i++) {
     const pName = (p.name || '').toLowerCase();
     if (pName.includes('tyre_stock') || pName.includes('tireblur')) return true;
     p = p.parent;
   }
-  
+
   return false;
 }
 
@@ -225,26 +256,26 @@ function isR34CustomTyre(o) {
   if (!o) return false;
   const meshName = (o.name || '').toLowerCase();
   if (meshName.includes('highpolytire')) return true;
-  
+
   let p = o.parent;
   for (let i = 0; i < 3 && p; i++) {
     const pName = (p.name || '').toLowerCase();
     if (pName.includes('highpolytire')) return true;
     p = p.parent;
   }
-  
+
   return false;
 }
 
 // Helper to identify R34 custom rims (Vossen VFS4, Rays Volk TE37, Nismo LMGT4)
 function getRimType(o) {
   if (!o) return null;
-  
+
   // If it's a stock rim, tyre, or custom tyre, it is NOT an upgrade rim
   if (isR34StockRim(o) || isR34StockTyre(o) || isR34CustomTyre(o)) return null;
 
   const name = (o.name || '').toLowerCase();
-  
+
   // Traverse up to 3 parent levels to check for group names
   let p = o.parent;
   for (let i = 0; i < 3 && p; i++) {
@@ -264,28 +295,38 @@ function getRimType(o) {
 
 
 /* ─── 3D Car Scene ─── */
-function CarScene({ car, bodyColor, rimColor, height, rotate, bumper, rimStyle, hood, spoiler, wrap }) {
+function CarScene({ car, bodyColor, rimColor, height, rotate, bumper, rimStyle, hood, spoiler, wrap, aiReport }) {
+  // Activate KTX2 GPU texture transcoder on the current WebGL renderer
+  useKTX2Setup();
   const isFBX = car.model.endsWith('.fbx');
   return isFBX
-    ? <FBXCarMesh car={car} bodyColor={bodyColor} rimColor={rimColor} height={height} rotate={rotate} bumper={bumper} rimStyle={rimStyle} hood={hood} spoiler={spoiler} wrap={wrap} />
-    : <GLBCarMesh car={car} bodyColor={bodyColor} rimColor={rimColor} height={height} rotate={rotate} bumper={bumper} rimStyle={rimStyle} hood={hood} spoiler={spoiler} wrap={wrap} />;
+    ? <FBXCarMesh car={car} bodyColor={bodyColor} rimColor={rimColor} height={height} rotate={rotate} bumper={bumper} rimStyle={rimStyle} hood={hood} spoiler={spoiler} wrap={wrap} aiReport={aiReport} />
+    : <GLBCarMesh car={car} bodyColor={bodyColor} rimColor={rimColor} height={height} rotate={rotate} bumper={bumper} rimStyle={rimStyle} hood={hood} spoiler={spoiler} wrap={wrap} aiReport={aiReport} />;
 }
 
-function GLBCarMesh({ car, bodyColor, rimColor, height, rotate, bumper, rimStyle, hood, spoiler, wrap }) {
+function GLBCarMesh({ car, bodyColor, rimColor, height, rotate, bumper, rimStyle, hood, spoiler, wrap, aiReport }) {
   const { scene } = useGLTF(car.model, DRACO_PATH);
-  return <CarMeshCore scene={scene} car={car} bodyColor={bodyColor} rimColor={rimColor} height={height} rotate={rotate} bumper={bumper} rimStyle={rimStyle} hood={hood} spoiler={spoiler} wrap={wrap} />;
+  return <CarMeshCore scene={scene} car={car} bodyColor={bodyColor} rimColor={rimColor} height={height} rotate={rotate} bumper={bumper} rimStyle={rimStyle} hood={hood} spoiler={spoiler} wrap={wrap} aiReport={aiReport} />;
 }
 
-function FBXCarMesh({ car, bodyColor, rimColor, height, rotate, bumper, rimStyle, hood, spoiler, wrap }) {
+function FBXCarMesh({ car, bodyColor, rimColor, height, rotate, bumper, rimStyle, hood, spoiler, wrap, aiReport }) {
   const scene = useFBX(car.model);
-  return <CarMeshCore scene={scene} car={car} bodyColor={bodyColor} rimColor={rimColor} height={height} rotate={rotate} bumper={bumper} rimStyle={rimStyle} hood={hood} spoiler={spoiler} wrap={wrap} />;
+  return <CarMeshCore scene={scene} car={car} bodyColor={bodyColor} rimColor={rimColor} height={height} rotate={rotate} bumper={bumper} rimStyle={rimStyle} hood={hood} spoiler={spoiler} wrap={wrap} aiReport={aiReport} />;
 }
 
-function CarMeshCore({ scene, car, bodyColor, rimColor, height, rotate, bumper, rimStyle, hood, spoiler, wrap }) {
+function CarMeshCore({ scene, car, bodyColor, rimColor, height, rotate, bumper, rimStyle, hood, spoiler, wrap, aiReport }) {
   const groupRef = useRef();
   const timeRef = useRef(0);
 
   const { invalidate } = useThree();
+
+  const sendLog = (type, msg) => {
+    fetch('http://localhost:8080/log', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type, msg })
+    }).catch(() => { });
+  };
 
   const carbonNormal = useTexture('/textures/carbon_n.png');
   useEffect(() => {
@@ -298,7 +339,7 @@ function CarMeshCore({ scene, car, bodyColor, rimColor, height, rotate, bumper, 
 
   const carClone = useMemo(() => {
     const c = scene.clone(true);
-    
+
     // Helper to normalize the model scale exactly like the fleet showcase page
     const autoNorm = (obj, targetSize) => {
       obj.updateWorldMatrix(true, true);
@@ -369,7 +410,18 @@ function CarMeshCore({ scene, car, bodyColor, rimColor, height, rotate, bumper, 
       toRemove.forEach(o => o.removeFromParent());
     }
 
-    // 2. Set frustum culling and unique material cloning on active sub-elements
+    c.traverse(o => {
+      if (o.isMesh) {
+        const lower = o.name.toLowerCase();
+        if (lower.includes('wheel') || lower.includes('rim') || lower.includes('black')) {
+          const box = new THREE.Box3().setFromObject(o);
+          const size = box.getSize(new THREE.Vector3());
+          sendLog('Size Debug', `Mesh="${o.name}" | Size=[${size.x.toFixed(3)}, ${size.y.toFixed(3)}, ${size.z.toFixed(3)}] | WorldPos=[${o.getWorldPosition(new THREE.Vector3()).toArray().map(v => v.toFixed(3)).join(', ')}]`);
+        }
+      }
+    });
+
+    // 2. Set frustum culling and unique material cloning and conversion on active sub-elements
     c.traverse(o => {
       if (o.isMesh) {
         o.frustumCulled = false;
@@ -378,9 +430,54 @@ function CarMeshCore({ scene, car, bodyColor, rimColor, height, rotate, bumper, 
           o.geometry.computeBoundingBox();
         }
         if (o.material) {
-          o.material = Array.isArray(o.material)
+          // Clone the material first to isolate changes
+          let mat = Array.isArray(o.material)
             ? o.material.map(m => m.clone())
             : o.material.clone();
+
+          // Convert paint materials to MeshPhysicalMaterial immediately for liquid-smooth 60FPS updates!
+          const meshName = (o.name || '').toLowerCase();
+          const checkPaintMat = m => {
+            if (!m) return m;
+            const matName = (m.name || '').toLowerCase();
+            let isPaint = false;
+            if (car.id === 5 || car.id === '5') {
+              isPaint = matName.includes('new material');
+            } else {
+              isPaint = matName.includes('paint') || matName.includes('body') || matName.includes('color') || meshName.includes('paint') || matName.includes('exterior') || matName.includes('base');
+            }
+
+            if (isPaint && !matName.includes('glass') && !matName.includes('interior') && !matName.includes('grille')) {
+              if (!(m instanceof THREE.MeshPhysicalMaterial)) {
+                const newMat = new THREE.MeshPhysicalMaterial({
+                  color: m.color || new THREE.Color('#ffffff'),
+                  map: m.map,
+                  normalMap: m.normalMap,
+                  normalScale: m.normalScale,
+                  roughness: m.roughness ?? 0.5,
+                  metalness: m.metalness ?? 0.5,
+                  aoMap: m.aoMap,
+                  aoMapIntensity: m.aoMapIntensity,
+                  roughnessMap: m.roughnessMap,
+                  metalnessMap: m.metalnessMap,
+                  envMap: m.envMap,
+                  envMapIntensity: m.envMapIntensity,
+                  emissive: m.emissive || new THREE.Color('#000000'),
+                  emissiveMap: m.emissiveMap,
+                  emissiveIntensity: m.emissiveIntensity,
+                  transparent: m.transparent,
+                  opacity: m.opacity,
+                  alphaMap: m.alphaMap,
+                  side: m.side
+                });
+                newMat.name = m.name;
+                return newMat;
+              }
+            }
+            return m;
+          };
+
+          o.material = Array.isArray(mat) ? mat.map(checkPaintMat) : checkPaintMat(mat);
         }
       }
     });
@@ -406,9 +503,9 @@ function CarMeshCore({ scene, car, bodyColor, rimColor, height, rotate, bumper, 
         while (p && p !== c) {
           const pName = (p.name || '').toLowerCase();
           if (
-            pName.includes('wheel') || 
-            pName.includes('rim') || 
-            pName.includes('tire') || 
+            pName.includes('wheel') ||
+            pName.includes('rim') ||
+            pName.includes('tire') ||
             pName.includes('tyre') ||
             pName.includes('brake') ||
             pName.includes('caliper') ||
@@ -430,6 +527,14 @@ function CarMeshCore({ scene, car, bodyColor, rimColor, height, rotate, bumper, 
     });
     c.userData.wheelNodes = Array.from(wheelNodes);
 
+    // (E63S Tyre Materials and Position Corrections block removed to prevent corrupting new combined model)
+
+    c.traverse(o => {
+      if (o.isMesh && (o.name.includes('black') || o.name.includes('wheel') || o.name.includes('rim') || o.name.includes('Stock_rims'))) {
+        sendLog('Pos Debug', `Name="${o.name}" | Pos=[${o.position.x.toFixed(3)}, ${o.position.y.toFixed(3)}, ${o.position.z.toFixed(3)}] | Scale=[${o.scale.x.toFixed(3)}, ${o.scale.y.toFixed(3)}, ${o.scale.z.toFixed(3)}] | Parent="${o.parent ? o.parent.name : 'None'}"`);
+      }
+    });
+
     return c;
   }, [scene, car]);
 
@@ -441,13 +546,17 @@ function CarMeshCore({ scene, car, bodyColor, rimColor, height, rotate, bumper, 
       const m = Array.isArray(o.material) ? o.material[0] : o.material;
       if (!m) return;
 
+      if (m && m.name === 'Black') {
+        sendLog('Mat Debug', `Mesh="${o.name}" | Color="${m.color ? m.color.getHexString() : 'none'}" | Opacity=${m.opacity} | Transparent=${m.transparent} | Visible=${m.visible}`);
+      }
+
       const matName = (m.name || '').toLowerCase();
       const meshName = (o.name || '').toLowerCase();
       const parentName = o.parent && o.parent.name ? o.parent.name.toLowerCase() : '';
 
       // Template parts classification
-      const isTemplatePart = 
-        meshName.includes('modified_rim_1') || 
+      const isTemplatePart =
+        meshName.includes('modified_rim_1') ||
         meshName.includes('vossen_gns-1') ||
         parentName.includes('modified_rim_1') ||
         parentName.includes('vossen_gns-1');
@@ -459,106 +568,91 @@ function CarMeshCore({ scene, car, bodyColor, rimColor, height, rotate, bumper, 
 
       // Rims classification
       const rimType = getRimType(o);
-      const isStockRimMesh = 
+      const isStockRimMesh =
         (meshName.includes('tnrrims') || matName.includes('tnrrims') || meshName.includes('natireblur') || matName.includes('natireblur')) &&
         !meshName.includes('brake') && !matName.includes('brake') &&
         !meshName.includes('tyre_stock');
 
       // Paint logic
-      // Broadened to catch more material names, including the original R34 body paint materials
-      const isPaint = matName.includes('paint') || matName.includes('body') || matName.includes('color') || meshName.includes('paint') || matName.includes('exterior') || matName.includes('base');
-      const isRim = rimType !== null || isStockRimMesh || isR34StockRim(o) || matName.includes('rim') || matName.includes('alloy') || (meshName.includes('wheel') && !matName.includes('tire') && !matName.includes('wheel18'));
+      let isPaint = false;
+      if (car.id === 5 || car.id === '5') {
+        isPaint = matName.includes('new material');
+      } else {
+        isPaint = matName.includes('paint') || matName.includes('body') || matName.includes('color') || meshName.includes('paint') || matName.includes('exterior') || matName.includes('base');
+      }
+      const isRim = rimType !== null || isStockRimMesh || isR34StockRim(o) || (matName.includes('rim') && !meshName.includes('wheels') && !meshName.includes('stock_rims')) || (matName.includes('alloy') && !meshName.includes('wheels') && !meshName.includes('stock_rims')) || (meshName.includes('wheel') && !matName.includes('tire') && !matName.includes('wheel18') && !meshName.includes('wheels') && !meshName.includes('mesheswheel002'));
 
 
-      if (isPaint && !matName.includes('glass') && !matName.includes('interior') && !matName.includes('black') && !matName.includes('grille')) {
-        // Upgrade to MeshPhysicalMaterial for outstanding high-fidelity automotive clearcoat and iridescence look
-        let activeMaterial = o.material;
-        if (!(activeMaterial instanceof THREE.MeshPhysicalMaterial)) {
-          const oldMat = activeMaterial;
-          activeMaterial = new THREE.MeshPhysicalMaterial({
-            color: oldMat.color,
-            map: oldMat.map,
-            normalMap: oldMat.normalMap,
-            normalScale: oldMat.normalScale,
-            roughness: oldMat.roughness,
-            metalness: oldMat.metalness,
-            aoMap: oldMat.aoMap,
-            aoMapIntensity: oldMat.aoMapIntensity,
-            roughnessMap: oldMat.roughnessMap,
-            metalnessMap: oldMat.metalnessMap,
-            envMap: oldMat.envMap,
-            envMapIntensity: oldMat.envMapIntensity,
-            emissive: oldMat.emissive,
-            emissiveMap: oldMat.emissiveMap,
-            emissiveIntensity: oldMat.emissiveIntensity,
-            transparent: oldMat.transparent,
-            opacity: oldMat.opacity,
-            alphaMap: oldMat.alphaMap,
-            side: oldMat.side
-          });
-          o.material = activeMaterial;
-        }
+      if (isPaint && !matName.includes('glass') && !matName.includes('interior') && !matName.includes('grille')) {
+        sendLog('Paint Debug', `Mesh="${meshName}" | Material="${matName}"`);
+        // Apply physical automotive clearcoat paint settings to all materials in the mesh safely
+        const materialsList = Array.isArray(o.material) ? o.material : [o.material];
+        materialsList.forEach(activeMaterial => {
+          if (activeMaterial) {
+            // Reset custom wrap mappings and values first
+            activeMaterial.map = null;
+            activeMaterial.normalMap = o.userData.originalNormalMap || activeMaterial.normalMap || null;
+            if (!o.userData.originalNormalMap && activeMaterial.normalMap) {
+              o.userData.originalNormalMap = activeMaterial.normalMap;
+            }
 
-        // Reset custom wrap mappings and values first
-        activeMaterial.map = null;
-        activeMaterial.normalMap = o.userData.originalNormalMap || activeMaterial.normalMap || null;
-        if (!o.userData.originalNormalMap && activeMaterial.normalMap) {
-          o.userData.originalNormalMap = activeMaterial.normalMap;
-        }
+            if (activeMaterial.color) {
+              activeMaterial.color.set(bodyColor.hex);
+            }
+            activeMaterial.metalness = bodyColor.metalness;
+            activeMaterial.roughness = bodyColor.roughness;
+            activeMaterial.clearcoat = 1.0;
+            activeMaterial.clearcoatRoughness = 0.05;
+            activeMaterial.iridescence = 0.0;
+            activeMaterial.roughnessMap = null;
+            activeMaterial.metalnessMap = null;
 
-        activeMaterial.color.set(bodyColor.hex);
-        activeMaterial.metalness = bodyColor.metalness;
-        activeMaterial.roughness = bodyColor.roughness;
-        activeMaterial.clearcoat = 1.0;
-        activeMaterial.clearcoatRoughness = 0.05;
-        activeMaterial.iridescence = 0.0;
-        activeMaterial.roughnessMap = null;
-        activeMaterial.metalnessMap = null;
+            // Apply PPF & Wrap-specific properties
+            if (wrap === 1) {
+              // Carbon Fiber wrap
+              if (activeMaterial.color) activeMaterial.color.set('#1c1c1c');
+              activeMaterial.metalness = 0.8;
+              activeMaterial.roughness = 0.2;
+              activeMaterial.clearcoat = 1.0;
+              activeMaterial.clearcoatRoughness = 0.04;
+              activeMaterial.normalMap = carbonNormal;
+            } else if (wrap === 2) {
+              // Brushed Steel wrap
+              if (activeMaterial.color) activeMaterial.color.set('#8a8e95');
+              activeMaterial.metalness = 1.0;
+              activeMaterial.roughness = 0.38;
+              activeMaterial.clearcoat = 0.25;
+            } else if (wrap === 3) {
+              // Matte Satin wrap
+              activeMaterial.metalness = 0.25;
+              activeMaterial.roughness = 0.7;
+              activeMaterial.clearcoat = 0.0;
+            } else if (wrap === 4) {
+              // Holographic wrap (Pearlescent color shifting)
+              if (activeMaterial.color) activeMaterial.color.set(bodyColor.hex);
+              activeMaterial.metalness = 0.15;
+              activeMaterial.roughness = 0.1;
+              activeMaterial.clearcoat = 1.0;
+              activeMaterial.clearcoatRoughness = 0.05;
+              activeMaterial.iridescence = 1.0;
+              activeMaterial.iridescenceIOR = 1.8;
+              activeMaterial.iridescenceThicknessRange = [100, 400];
+            } else if (wrap === 5) {
+              // Digital Camo wrap (Procedural canvas-based pattern!)
+              if (!o.userData.camoTextures) o.userData.camoTextures = {};
+              if (!o.userData.camoTextures[bodyColor.hex]) {
+                o.userData.camoTextures[bodyColor.hex] = createCamoTexture(bodyColor.hex);
+              }
+              activeMaterial.map = o.userData.camoTextures[bodyColor.hex];
+              if (activeMaterial.color) activeMaterial.color.set('#ffffff'); // show canvas texture colors perfectly
+              activeMaterial.metalness = 0.2;
+              activeMaterial.roughness = 0.55;
+              activeMaterial.clearcoat = 0.0;
+            }
 
-        // Apply PPF & Wrap-specific properties
-        if (wrap === 1) {
-          // Carbon Fiber wrap
-          activeMaterial.color.set('#1c1c1c');
-          activeMaterial.metalness = 0.8;
-          activeMaterial.roughness = 0.2;
-          activeMaterial.clearcoat = 1.0;
-          activeMaterial.clearcoatRoughness = 0.04;
-          activeMaterial.normalMap = carbonNormal;
-        } else if (wrap === 2) {
-          // Brushed Steel wrap
-          activeMaterial.color.set('#8a8e95');
-          activeMaterial.metalness = 1.0;
-          activeMaterial.roughness = 0.38;
-          activeMaterial.clearcoat = 0.25;
-        } else if (wrap === 3) {
-          // Matte Satin wrap
-          activeMaterial.metalness = 0.25;
-          activeMaterial.roughness = 0.7;
-          activeMaterial.clearcoat = 0.0;
-        } else if (wrap === 4) {
-          // Holographic wrap (Pearlescent color shifting)
-          activeMaterial.color.set(bodyColor.hex);
-          activeMaterial.metalness = 0.15;
-          activeMaterial.roughness = 0.1;
-          activeMaterial.clearcoat = 1.0;
-          activeMaterial.clearcoatRoughness = 0.05;
-          activeMaterial.iridescence = 1.0;
-          activeMaterial.iridescenceIOR = 1.8;
-          activeMaterial.iridescenceThicknessRange = [100, 400];
-        } else if (wrap === 5) {
-          // Digital Camo wrap (Procedural canvas-based pattern!)
-          if (!o.userData.camoTextures) o.userData.camoTextures = {};
-          if (!o.userData.camoTextures[bodyColor.hex]) {
-            o.userData.camoTextures[bodyColor.hex] = createCamoTexture(bodyColor.hex);
+            activeMaterial.needsUpdate = true;
           }
-          activeMaterial.map = o.userData.camoTextures[bodyColor.hex];
-          activeMaterial.color.set('#ffffff'); // show canvas texture colors perfectly
-          activeMaterial.metalness = 0.2;
-          activeMaterial.roughness = 0.55;
-          activeMaterial.clearcoat = 0.0;
-        }
-
-        activeMaterial.needsUpdate = true;
+        });
       }
 
       if (isRim && !matName.includes('tire') && !matName.includes('rubber') && !meshName.includes('tire')) {
@@ -634,6 +728,103 @@ function CarMeshCore({ scene, car, bodyColor, rimColor, height, rotate, bumper, 
           else if (rimStyle === 2) o.visible = (rimType === 'lmgt4');
           else o.visible = false;
         }
+        
+        // Handle the new unified "wheels" mesh for R34 if present
+        if (meshName.includes('wheels')) {
+          o.visible = (rimStyle > 0);
+        }
+      }
+
+      // E63 S Custom Toggles (100% suffix-safe using includes checks)
+      if (car.id === 5 || car.id === '5') {
+        // Front and Rear Bumpers must ALWAYS remain visible!
+        if (meshName.includes('meshespaint0011') || meshName.includes('meshespaint41')) {
+          o.visible = true;
+        }
+
+        // Toggle Front Splitter
+        if (meshName.includes('meshesbumprearok0011')) {
+          o.visible = (bumper > 0);
+        }
+
+        // Toggle Hoods using casing-proof, safe meshName includes checks
+        if (meshName.includes('meshespaint51')) {
+          o.visible = (hood === 0);
+        } else if (meshName.includes('meshesbonnetok1')) {
+          o.visible = (hood > 0);
+        }
+
+        // Trunk lid must ALWAYS remain visible to prevent gaping cabin holes!
+        if (meshName.includes('meshespaint1') || meshName.includes('stock_trunk') || meshName.includes('trunk')) {
+          o.visible = true;
+        }
+
+        // Toggle custom spoilers on top of the trunk lid
+        if (meshName.includes('meshesbootok0031')) {
+          o.visible = (spoiler === 1);
+        } else if (meshName.includes('meshesbootok00111')) {
+          o.visible = (spoiler === 2);
+        }
+
+        // Toggle Rims using safe meshName includes checks
+        if (meshName.includes('stock_rims') || meshName.includes('meshesblack82')) {
+          o.visible = (rimStyle === 0);
+        } else if (meshName.includes('mesheswheel002') || meshName.includes('wheels')) {
+          o.visible = (rimStyle > 0);
+        }
+
+        // Tyres ALWAYS remain visible so they stay on custom rims!
+        if (
+          meshName.includes('meshesblack00151') ||
+          meshName.includes('meshesblack00231') ||
+          meshName.includes('meshesblack00321') ||
+          meshName.includes('meshesblack101')
+        ) {
+          o.visible = true;
+        }
+
+        // Hide floating extra deflector / rod / fender arch objects
+        if (
+          meshName.includes('meshesdoorlrok0061') ||
+          meshName.includes('meshesdoorlrok0071') ||
+          meshName.includes('meshesdoorrfok0191') ||
+          meshName.includes('meshesdoorrfok0201') ||
+          meshName.includes('meshesdoorrfok0221') ||
+          meshName.includes('mesheslights51') ||
+          meshName.includes('mesheschrome91') ||
+          meshName.includes('mesheschrome92') ||
+          meshName.includes('mesheschrome93') ||
+          meshName.includes('mesheschrome94')
+        ) {
+          o.visible = false;
+        }
+      }
+
+      // Supra MkIV / A80 Custom Toggles
+      if (car.id === 3 || car.id === '3' || car.id === 6 || car.id === '6') {
+        // Toggle Bumpers
+        if (o.name === 'Stock_front_bumper') {
+          o.visible = (bumper === 0);
+        } else if (o.name === 'Cube.008_Cube.009') {
+          o.visible = (bumper > 0);
+        }
+
+        // Toggle Hoods
+        if (o.name === 'Stock_hood') {
+          o.visible = (hood === 0);
+        } else if (o.name === 'Cube.005_Cube.006') {
+          o.visible = (hood > 0);
+        }
+
+        // Toggle Spoilers
+        if (o.name === 'Cube.006_Cube.007') {
+          o.visible = (spoiler > 0);
+        }
+
+        // Always show the stock wheels (since there is one wheel set in the model)
+        if (o.name === 'Stock_Wheels') {
+          o.visible = true;
+        }
       }
     });
 
@@ -645,7 +836,7 @@ function CarMeshCore({ scene, car, bodyColor, rimColor, height, rotate, bumper, 
     if (!groupRef.current) return;
     timeRef.current += delta;
     if (rotate) groupRef.current.rotation.y += delta * 0.3;
-    
+
     // Gentle float
     const floatVal = Math.sin(timeRef.current * 0.8) * 0.015;
     groupRef.current.position.y = height + floatVal;
@@ -717,7 +908,99 @@ export default function CarConfigurator({ user, onOpenAuth }) {
   const [isPublishing, setIsPublishing] = useState(false);
   const [publishStatus, setPublishStatus] = useState('');
   const [story, setStory] = useState('');
+  const [smartLoading, setSmartLoading] = useState(false);
+  const [aiReport, setAiReport] = useState(null);
+  const [smartQuery, setSmartQuery] = useState("");
+  const [isLeftOpen, setIsLeftOpen] = useState(true);
+  const [isRightOpen, setIsRightOpen] = useState(true);
+  const prevConfigRef = useRef(null);
 
+  const handleSmartAIConfigure = async (overrideQuery = null) => {
+    const queryToSend = overrideQuery || smartQuery;
+    if (!queryToSend.trim()) return;
+    setSmartLoading(true);
+    try {
+      const res = await fetch("http://localhost:5000/api/ai/smart-configure", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userQuery: queryToSend, carName: car.name })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.config) {
+          const cfg = data.config;
+          if (cfg.bodyColorHex) {
+            const matchedColor = BODY_COLORS.find(c => c.hex.toLowerCase() === cfg.bodyColorHex.toLowerCase());
+            if (matchedColor) {
+              setBodyColor(matchedColor);
+            } else {
+              setBodyColor({ label: 'Custom AI Paint', hex: cfg.bodyColorHex });
+            }
+          }
+          if (cfg.wrapIndex !== undefined) setWrap(cfg.wrapIndex);
+          if (cfg.rimStyleIndex !== undefined) setRimStyle(cfg.rimStyleIndex);
+          if (cfg.rimColorIndex !== undefined) setRimColor(RIM_COLORS[cfg.rimColorIndex] || RIM_COLORS[0]);
+          if (cfg.bumperIndex !== undefined) setBumper(cfg.bumperIndex);
+          if (cfg.hoodIndex !== undefined) setHood(cfg.hoodIndex);
+          if (cfg.spoilerIndex !== undefined) setSpoiler(cfg.spoilerIndex);
+          if (cfg.suspensionOffset !== undefined) setCarHeight(cfg.suspensionOffset);
+          if (cfg.tuningIndex !== undefined) setTuning(cfg.tuningIndex);
+        }
+      }
+    } catch (err) {
+      console.error("AI prompt err:", err);
+    } finally {
+      setSmartLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      setSmartLoading(true);
+      try {
+        const currentConfig = {
+          bodyColorHex: bodyColor.hex,
+          rimStyleIndex: rimStyle,
+          rimColorIndex: RIM_COLORS.findIndex(r => r.hex === rimColor.hex),
+          wrapIndex: wrap,
+          bumperIndex: bumper,
+          hoodIndex: hood,
+          spoilerIndex: spoiler,
+          suspensionOffset: carHeight,
+          tuningIndex: tuning != null ? tuning : 0
+        };
+
+        let lastModified = "Initial Load";
+        if (prevConfigRef.current) {
+          if (prevConfigRef.current.bodyColorHex !== currentConfig.bodyColorHex) lastModified = "body color";
+          else if (prevConfigRef.current.wrapIndex !== currentConfig.wrapIndex) lastModified = "wrap";
+          else if (prevConfigRef.current.rimStyleIndex !== currentConfig.rimStyleIndex) lastModified = "rim style";
+          else if (prevConfigRef.current.rimColorIndex !== currentConfig.rimColorIndex) lastModified = "rim color";
+          else if (prevConfigRef.current.bumperIndex !== currentConfig.bumperIndex) lastModified = "bumper kit";
+          else if (prevConfigRef.current.hoodIndex !== currentConfig.hoodIndex) lastModified = "hood";
+          else if (prevConfigRef.current.spoilerIndex !== currentConfig.spoilerIndex) lastModified = "spoiler";
+          else if (prevConfigRef.current.suspensionOffset !== currentConfig.suspensionOffset) lastModified = "suspension stance";
+          else if (prevConfigRef.current.tuningIndex !== currentConfig.tuningIndex) lastModified = "engine tuning";
+        }
+        prevConfigRef.current = currentConfig;
+
+        const res = await fetch("http://localhost:5000/api/ai/evaluate-build", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ carName: car.name, currentConfig, lastModified })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setAiReport(data);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setSmartLoading(false);
+      }
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, [bodyColor, rimColor, rimStyle, wrap, bumper, hood, spoiler, carHeight, tuning, car.name]);
   // Auto-restore saved garage configuration for this user and car
   useEffect(() => {
     if (user && car) {
@@ -731,7 +1014,7 @@ export default function CarConfigurator({ user, onOpenAuth }) {
               // Restore Paint
               const matchedBodyColor = BODY_COLORS.find(c => c.hex === savedConfig.paintColor);
               if (matchedBodyColor) setBodyColor(matchedBodyColor);
-              
+
               // Restore Wrap
               const matchedWrapIndex = WRAP_OPTIONS.findIndex(w => w.label === savedConfig.wrapType);
               if (matchedWrapIndex !== -1) setWrap(matchedWrapIndex);
@@ -748,7 +1031,7 @@ export default function CarConfigurator({ user, onOpenAuth }) {
 
               // Restore Stance & Tuning
               if (savedConfig.suspension !== undefined) setCarHeight(savedConfig.suspension);
-              
+
               const matchedTuneIndex = TUNING_OPTIONS.findIndex(t => t.label === savedConfig.tuning);
               setTuning(matchedTuneIndex !== -1 ? matchedTuneIndex : null);
             }
@@ -763,10 +1046,10 @@ export default function CarConfigurator({ user, onOpenAuth }) {
       if (onOpenAuth) onOpenAuth();
       return;
     }
-    
+
     setIsSaving(true);
     setSaveStatus('SAVING...');
-    
+
     const payload = {
       username: user.username,
       carId: car.id,
@@ -811,10 +1094,10 @@ export default function CarConfigurator({ user, onOpenAuth }) {
       if (onOpenAuth) onOpenAuth();
       return;
     }
-    
+
     setIsPublishing(true);
     setPublishStatus('PUBLISHING...');
-    
+
     // Capture snapshot from the WebGL canvas
     const canvas = document.querySelector('.cfg-viewport canvas');
     let snapshot = '';
@@ -860,10 +1143,13 @@ export default function CarConfigurator({ user, onOpenAuth }) {
   };
 
   const isR34 = car.id === 4 || car.id === '4';
-  const activeBumperOptions = isR34 ? R34_BUMPER_OPTIONS : DEFAULT_BUMPER_OPTIONS;
-  const activeRimStyles = isR34 ? R34_RIM_STYLES : DEFAULT_RIM_STYLES;
-  const activeHoodOptions = isR34 ? R34_HOOD_OPTIONS : null;
-  const activeSpoilerOptions = isR34 ? R34_SPOILER_OPTIONS : null;
+  const isE63 = car.id === 5 || car.id === '5';
+  const isSupra = car.id === 3 || car.id === '3' || car.id === 6 || car.id === '6';
+
+  const activeBumperOptions = isR34 ? R34_BUMPER_OPTIONS : (isE63 ? E63_BUMPER_OPTIONS : (isSupra ? SUPRA_BUMPER_OPTIONS : DEFAULT_BUMPER_OPTIONS));
+  const activeRimStyles = isR34 ? R34_RIM_STYLES : (isE63 ? E63_RIM_STYLES : (isSupra ? SUPRA_RIM_STYLES : DEFAULT_RIM_STYLES));
+  const activeHoodOptions = isR34 ? R34_HOOD_OPTIONS : (isE63 ? E63_HOOD_OPTIONS : (isSupra ? SUPRA_HOOD_OPTIONS : null));
+  const activeSpoilerOptions = isR34 ? R34_SPOILER_OPTIONS : (isE63 ? E63_SPOILER_OPTIONS : (isSupra ? SUPRA_SPOILER_OPTIONS : null));
 
   const totalHp = tuning != null ? parseInt(TUNING_OPTIONS[tuning].hp) : 0;
 
@@ -873,22 +1159,22 @@ export default function CarConfigurator({ user, onOpenAuth }) {
     canvas.width = 512;
     canvas.height = 512;
     const ctx = canvas.getContext('2d');
-    
+
     if (env === 'showroom') {
       // Luxury White Ceramic Showroom Floor Tiles
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, 512, 512);
-      
+
       // Clean modern light-grey grout borders
-      ctx.strokeStyle = '#e2e8f0'; 
+      ctx.strokeStyle = '#e2e8f0';
       ctx.lineWidth = 3;
       ctx.strokeRect(0, 0, 512, 512);
-      
+
       // Faint inner reflection border
       ctx.strokeStyle = '#f1f5f9';
       ctx.lineWidth = 1;
       ctx.strokeRect(4, 4, 504, 504);
-      
+
       // Ultra-soft marble vein accents
       ctx.strokeStyle = 'rgba(0, 0, 0, 0.015)';
       ctx.lineWidth = 1;
@@ -900,16 +1186,16 @@ export default function CarConfigurator({ user, onOpenAuth }) {
       // Grey Studio Land Tiles
       ctx.fillStyle = '#1c1e22';
       ctx.fillRect(0, 0, 512, 512);
-      
+
       // Matte charcoal grout borders
-      ctx.strokeStyle = '#272a30'; 
+      ctx.strokeStyle = '#272a30';
       ctx.lineWidth = 3;
       ctx.strokeRect(0, 0, 512, 512);
     } else {
       // Realistic Asphalt Road
       ctx.fillStyle = '#0a0b0d';
       ctx.fillRect(0, 0, 512, 512);
-      
+
       // Densely randomized asphalt grain noise
       for (let i = 0; i < 5000; i++) {
         const x = Math.random() * 512;
@@ -924,15 +1210,15 @@ export default function CarConfigurator({ user, onOpenAuth }) {
       ctx.lineWidth = 1;
       ctx.strokeRect(0, 0, 512, 512);
     }
-    
+
     const tex = new THREE.CanvasTexture(canvas);
     tex.wrapS = THREE.RepeatWrapping;
     tex.wrapT = THREE.RepeatWrapping;
-    
+
     // Set density repeat values: showroom = large grand tiles (6x6), studio = medium plates (12x12), road = granular grain (32x32)
     const repeatVal = env === 'showroom' ? 6 : env === 'studio' ? 12 : 32;
     tex.repeat.set(repeatVal, repeatVal);
-    
+
   }, [env]);
 
   // Generates high-fidelity 'CAR CANVAS STUDIO' canvas texture to display on the studio backdrop wall
@@ -941,22 +1227,22 @@ export default function CarConfigurator({ user, onOpenAuth }) {
     canvas.width = 1024;
     canvas.height = 256;
     const ctx = canvas.getContext('2d');
-    
+
     // Transparent background
     ctx.clearRect(0, 0, 1024, 256);
-    
+
     // Sleek white glowing typography
     ctx.fillStyle = '#ffffff';
     ctx.font = 'bold 72px "Montserrat", "Outfit", "Inter", sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    
+
     // Add text shadow for high-end soft lighting glow
     ctx.shadowColor = '#ffffff';
     ctx.shadowBlur = 12;
-    
+
     ctx.fillText('CAR CANVAS STUDIO', 512, 128);
-    
+
     const tex = new THREE.CanvasTexture(canvas);
     return tex;
   }, []);
@@ -985,7 +1271,59 @@ export default function CarConfigurator({ user, onOpenAuth }) {
         </div>
       </header>
 
-      <div className="configurator-layout">
+      <div className="configurator-layout" style={{ position: 'relative' }}>
+        {/* ── AI TELEMETRY SIDEBAR (LEFT) ── */}
+        <aside className={`ai-telemetry-sidebar ${isLeftOpen ? '' : 'collapsed'}`}>
+          <div style={{ width: '320px' }}>
+            <div className="ai-sidebar-header">
+              <span className="ai-icon">🧠</span> AI CO-PILOT
+            </div>
+            
+            {aiReport ? (
+              <div className="ai-telemetry-content">
+                <div className="telemetry-cost">TOTAL: PKR {aiReport.market_report.total_estimated_pkr.toLocaleString()}</div>
+                
+                {aiReport.market_report.build_rating && (
+                  <div className="ai-rating">
+                    ⭐ RATING: {aiReport.market_report.build_rating}
+                  </div>
+                )}
+                {aiReport.market_report.performance_impact && (
+                  <div className="ai-performance">
+                    "{aiReport.market_report.performance_impact}"
+                  </div>
+                )}
+
+                <div className="telemetry-suggestions">
+                  <div className="suggestion-title">AI SUGGESTIONS:</div>
+                  {aiReport.suggestions.map((s, i) => (
+                    <div key={i} className="suggestion-item">
+                      <span className="suggestion-badge">{s.label}</span>
+                      <span className="suggestion-reason">{s.reason}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="telemetry-sourcing">
+                  <div className="sourcing-title">SOURCING:</div>
+                  📍 {aiReport.market_report.primary_hub} ({aiReport.market_report.sourcing_city})<br/>
+                  🛠️ {aiReport.market_report.trusted_importer}
+                </div>
+              </div>
+            ) : (
+              <div className="ai-loading-state" style={{ height: '500px' }}>
+                <div className="pulse-dot-large"></div>
+                <span>ANALYZING BUILD...</span>
+              </div>
+            )}
+          </div>
+        </aside>
+
+        {/* LEFT TOGGLE TAB */}
+        <div className={`panel-toggle-tab left ${isLeftOpen ? '' : 'collapsed'}`} onClick={() => setIsLeftOpen(!isLeftOpen)}>
+          {isLeftOpen ? '◀' : '▶'}
+        </div>
+
         {/* ── 3D VIEWPORT ── */}
         <div className="cfg-viewport">
           {/* Accent corner decorations */}
@@ -994,19 +1332,19 @@ export default function CarConfigurator({ user, onOpenAuth }) {
 
           {/* Floating Location Environment Toggler */}
           <div className="cfg-env-toolbar">
-            <button 
+            <button
               className={`cfg-env-btn ${env === 'showroom' ? 'active' : ''}`}
               onClick={() => setEnv('showroom')}
             >
               🏛️ SHOWROOM
             </button>
-            <button 
+            <button
               className={`cfg-env-btn ${env === 'night' ? 'active' : ''}`}
               onClick={() => setEnv('night')}
             >
               🌃 NIGHT STREET
             </button>
-            <button 
+            <button
               className={`cfg-env-btn ${env === 'studio' ? 'active' : ''}`}
               onClick={() => setEnv('studio')}
             >
@@ -1014,22 +1352,22 @@ export default function CarConfigurator({ user, onOpenAuth }) {
             </button>
           </div>
 
-          {/* OPTIMIZED: frameloop={autoRotate ? "always" : "demand"} */}
+          {/* OPTIMIZED: KTX2 + Draco, adaptive DPR, demand render when static */}
           <Canvas
             frameloop={autoRotate ? "always" : "demand"}
             camera={{ position: [3.5, 1.2, 3.5], fov: 42 }}
-            gl={{ antialias: true, alpha: true, toneMapping: THREE.ACESFilmicToneMapping, preserveDrawingBuffer: true }}
-            dpr={[1, 1.5]}
+            gl={GL_PROPS_FULL}
+            dpr={ADAPTIVE_DPR}
           >
-            <color 
-              attach="background" 
+            <color
+              attach="background"
               args={[
                 env === 'showroom' ? '#f3f4f6' :
-                env === 'night' ? '#020306' :
-                '#151619'
-              ]} 
+                  env === 'night' ? '#020306' :
+                    '#151619'
+              ]}
             />
-            
+
             {/* ─── SHOWROOM ENVIRONMENT: INDOOR ARCHITECTURE ─── */}
             {env === 'showroom' && (
               <group>
@@ -1060,7 +1398,7 @@ export default function CarConfigurator({ user, onOpenAuth }) {
                   <boxGeometry args={[1.2, 8, 1.2]} />
                   <meshStandardMaterial color="#dadada" roughness={0.45} />
                 </mesh>
-                
+
                 {/* Left Glass Wall Pane (Windows showing daylight outside!) */}
                 <group position={[-15, 4, 0]} rotation={[0, Math.PI / 2, 0]}>
                   <mesh position={[-10, 0, 0]}>
@@ -1084,7 +1422,7 @@ export default function CarConfigurator({ user, onOpenAuth }) {
                     <meshStandardMaterial color="#e0f2fe" transparent opacity={0.12} roughness={0.05} metalness={0.9} />
                   </mesh>
                 </group>
-                
+
                 {/* Right Glass Wall Pane */}
                 <group position={[15, 4, 0]} rotation={[0, -Math.PI / 2, 0]}>
                   <mesh position={[-10, 0, 0]}>
@@ -1139,7 +1477,7 @@ export default function CarConfigurator({ user, onOpenAuth }) {
                   <sphereGeometry args={[0.3]} />
                   <meshBasicMaterial color="#00ffff" toneMapped={false} />
                 </mesh>
-                
+
                 {/* Neon Streetlamp Right */}
                 <mesh position={[7, 3.5, 6]} castShadow>
                   <cylinderGeometry args={[0.06, 0.06, 7]} />
@@ -1170,7 +1508,7 @@ export default function CarConfigurator({ user, onOpenAuth }) {
                   <boxGeometry args={[30, 8, 0.2]} />
                   <meshStandardMaterial color="#111215" roughness={0.85} metalness={0.05} />
                 </mesh>
-                
+
                 {/* Left side enclosing wall */}
                 <mesh position={[-15, 4, 0]} rotation={[0, Math.PI / 2, 0]} receiveShadow>
                   <boxGeometry args={[30, 8, 0.2]} />
@@ -1218,71 +1556,71 @@ export default function CarConfigurator({ user, onOpenAuth }) {
                 </mesh>
               </group>
             )}
-            
+
             {/* ─── LIGHTING SETUPS ─── */}
-            <ambientLight 
+            <ambientLight
               intensity={
                 env === 'showroom' ? 0.78 :
-                env === 'night' ? 0.15 :
-                0.95
-              } 
+                  env === 'night' ? 0.15 :
+                    0.95
+              }
             />
-            <directionalLight 
+            <directionalLight
               position={
                 env === 'showroom' ? [12, 14, 12] :
-                env === 'studio' ? [0, 5.5, 0] : 
-                [5, 8, 5]
-              } 
+                  env === 'studio' ? [0, 5.5, 0] :
+                    [5, 8, 5]
+              }
               intensity={
                 env === 'showroom' ? 2.8 :
-                env === 'night' ? 0.35 :
-                3.5
-              } 
+                  env === 'night' ? 0.35 :
+                    3.5
+              }
               color={env === 'showroom' ? '#fff9f0' : '#ffffff'}
-              castShadow 
+              castShadow
               shadow-mapSize={[512, 512]}
             />
-            <directionalLight 
+            <directionalLight
               position={
                 env === 'showroom' ? [-12, 10, -12] :
-                env === 'studio' ? [0, 12, 0] : 
-                [5, 2, 5]
-              } 
+                  env === 'studio' ? [0, 12, 0] :
+                    [5, 2, 5]
+              }
               intensity={
                 env === 'showroom' ? 1.8 :
-                env === 'night' ? 2.8 :
-                2.2
-              } 
+                  env === 'night' ? 2.8 :
+                    2.2
+              }
               color={
                 env === 'showroom' ? '#e0f2fe' :
-                env === 'night' ? '#ff00cc' : 
-                '#ffffff'
-              } 
+                  env === 'night' ? '#ff00cc' :
+                    '#ffffff'
+              }
             />
-            <directionalLight 
-              position={[-5, 2, -5]} 
+            <directionalLight
+              position={[-5, 2, -5]}
               intensity={
                 env === 'showroom' ? 1.2 :
-                env === 'night' ? 2.2 :
-                1.5
-              } 
+                  env === 'night' ? 2.2 :
+                    1.5
+              }
               color={
                 env === 'showroom' ? '#ffffff' :
-                env === 'night' ? '#00ffff' : 
-                '#ffffff'
-              } 
+                  env === 'night' ? '#00ffff' :
+                    '#ffffff'
+              }
             />
-            <pointLight 
-              position={[0, 4.5, 0]} 
-              color={env === 'night' ? '#00ffff' : car.accentColor} 
+            <pointLight
+              position={[0, 4.5, 0]}
+              color={env === 'night' ? '#00ffff' : car.accentColor}
               intensity={
                 env === 'showroom' ? 1.6 :
-                env === 'night' ? 2.6 :
-                0
-              } 
-              distance={env === 'night' ? 10 : 8} 
+                  env === 'night' ? 2.6 :
+                    0
+              }
+              distance={env === 'night' ? 10 : 8}
             />
-            
+
             {/* ─── 3D CAR INSTANCE ─── */}
             <Suspense fallback={null}>
               <CarScene
@@ -1296,13 +1634,14 @@ export default function CarConfigurator({ user, onOpenAuth }) {
                 hood={hood}
                 spoiler={spoiler}
                 wrap={wrap}
+                aiReport={aiReport}
               />
-              <Environment 
+              <Environment
                 preset={
                   env === 'showroom' ? 'city' :
-                  env === 'night' ? 'night' :
-                  'studio'
-                } 
+                    env === 'night' ? 'night' :
+                      'studio'
+                }
                 background
                 blur={0}
               />
@@ -1318,7 +1657,7 @@ export default function CarConfigurator({ user, onOpenAuth }) {
               enableDamping={true}
               dampingFactor={0.25}
             />
-            
+
             {/* ─── REAL-TIME REFLECTIVE GROUND ─── */}
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.002, 0]} receiveShadow>
               <planeGeometry args={[80, 80]} />
@@ -1338,6 +1677,13 @@ export default function CarConfigurator({ user, onOpenAuth }) {
               />
             </mesh>
           </Canvas>
+
+          {/* AI Prompt Input */}
+          <div className="ai-prompt-bar" style={{ position: 'absolute', bottom: '90px', left: '50%', transform: 'translateX(-50%)', width: '450px', display: 'flex', background: 'rgba(5,7,18,0.85)', backdropFilter: 'blur(20px)', border: '1px solid rgba(197, 160, 89, 0.4)', borderRadius: '30px', padding: '6px', zIndex: 100, boxShadow: '0 10px 30px rgba(0,0,0,0.5), 0 0 15px rgba(197, 160, 89, 0.15)', transition: 'all 0.3s' }}>
+            <div style={{ padding: '0 14px', display: 'flex', alignItems: 'center', color: '#c5a059', fontSize: '14px' }}>✨</div>
+            <input type="text" value={smartQuery} onChange={e => setSmartQuery(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSmartAIConfigure()} placeholder="AI Co-Pilot: 'Pink wrap with lowered stance...'" style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: '#fff', fontSize: '12px', fontFamily: 'Inter' }} />
+            <button onClick={() => handleSmartAIConfigure()} disabled={smartLoading} style={{ background: '#c5a059', border: 'none', color: '#000', borderRadius: '24px', padding: '8px 16px', fontSize: '11px', fontWeight: 'bold', cursor: 'pointer', transition: 'filter 0.2s' }} onMouseEnter={e => e.target.style.filter = 'brightness(1.15)'} onMouseLeave={e => e.target.style.filter = 'brightness(1)'}>{smartLoading ? "GENERATING..." : "APPLY"}</button>
+          </div>
 
           {/* Live stats overlay */}
           <div className="cfg-hud">
@@ -1364,7 +1710,7 @@ export default function CarConfigurator({ user, onOpenAuth }) {
 
         {/* ── PANEL ── */}
         <aside className="cfg-panel">
-          <div className="cfg-panel-inner">
+          <div className="cfg-panel-inner" style={{ width: '340px' }}>
 
             <ConfigSection title="Body Color" icon="🎨" defaultOpen>
               <div className="color-swatches">
@@ -1383,19 +1729,23 @@ export default function CarConfigurator({ user, onOpenAuth }) {
             </ConfigSection>
 
             <ConfigSection title="Rims & Wheels" icon="⚙️">
-              <p className="cfg-sub-label">Style</p>
-              <div className="rim-grid">
-                {activeRimStyles.map((r, i) => (
-                  <button key={i}
-                    className={`rim-btn ${rimStyle === i ? 'active' : ''}`}
-                    onClick={() => setRimStyle(i)}
-                  >
-                    <span className="rim-icon">{r.icon}</span>
-                    <span>{r.label}</span>
-                  </button>
-                ))}
-              </div>
-              <p className="cfg-sub-label" style={{ marginTop: '14px' }}>Finish</p>
+              {!isR34 && (
+                <>
+                  <p className="cfg-sub-label">Style</p>
+                  <div className="rim-grid">
+                    {activeRimStyles.map((r, i) => (
+                      <button key={i}
+                        className={`rim-btn ${rimStyle === i ? 'active' : ''}`}
+                        onClick={() => setRimStyle(i)}
+                      >
+                        <span className="rim-icon">{r.icon}</span>
+                        <span>{r.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+              <p className="cfg-sub-label" style={{ marginTop: !isR34 ? '14px' : '0' }}>Finish</p>
               <div className="rim-colors">
                 {RIM_COLORS.map((c, i) => (
                   <button key={i}
@@ -1499,7 +1849,6 @@ export default function CarConfigurator({ user, onOpenAuth }) {
                 </div>
               )}
             </ConfigSection>
-
             <ConfigSection title="Showroom Story & Experience" icon="✍️">
               <textarea
                 value={story}

@@ -1,0 +1,1452 @@
+[
+    {
+        "id": 1,
+        "theme_title": "Lahore Stealth Build #42",
+        "car_compatibility": "Skyline GT-R R34",
+        "vibe": "Stealth",
+        "keywords": "Aggressive, dark, clean, low profile, street racing, midnight, undercover, mafia, blacked out",
+        "config_mapping": {
+            "bodyColorHex": "#0a0a0a",
+            "bodyColorLabel": "Obsidian Black",
+            "wrapIndex": 3,
+            "wrapLabel": "Matte Satin",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 2,
+            "hoodIndex": 1,
+            "spoilerIndex": 1,
+            "suspensionOffset": -0.06,
+            "tuningIndex": 3,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1145000,
+            "sourcing_city": "Lahore",
+            "primary_hub": "DHA Phase 5 Commercial",
+            "trusted_importer": "CarX Lahore / Speed Cred Lahore",
+            "platforms": "SehgalMotors.pk / Autostore.pk"
+        }
+    },
+    {
+        "id": 2,
+        "theme_title": "Karachi VIP Executive Build #18",
+        "car_compatibility": "AMG E63 S",
+        "vibe": "VIP Executive",
+        "keywords": "Elegant, luxury, formal, expensive, clean, high profile, defense, upscale, royal",
+        "config_mapping": {
+            "bodyColorHex": "#0d1f3c",
+            "bodyColorLabel": "Midnight Blue",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 1,
+            "rimColorLabel": "Brushed Silver",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.0,
+            "tuningIndex": 0,
+            "tuningLabel": "Stage 1 ECU"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 380000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "Khalid Bin Waleed Road",
+            "trusted_importer": "Tuning Kraft Karachi / Extreme Motorsports",
+            "platforms": "SehgalMotors.pk / Autostore.pk"
+        }
+    },
+    {
+        "id": 3,
+        "theme_title": "Pindi Chah Sultan Drift King #09",
+        "car_compatibility": "Supra A80",
+        "vibe": "Track Monster",
+        "keywords": "Race spec, wing, loud, vents, aerodynamic, performance, high speed, circuit, motorsport, drift",
+        "config_mapping": {
+            "bodyColorHex": "#c45200",
+            "bodyColorLabel": "Sunset Orange",
+            "wrapIndex": 1,
+            "wrapLabel": "Carbon Fiber",
+            "rimStyleIndex": 2,
+            "rimColorIndex": 3,
+            "rimColorLabel": "Gunmetal",
+            "bumperIndex": 1,
+            "hoodIndex": 2,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.05,
+            "tuningIndex": 4,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1850000,
+            "sourcing_city": "Rawalpindi",
+            "primary_hub": "Chah Sultan Road",
+            "trusted_importer": "Autoz Pakistan / Grease Monkey Pindi",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 4,
+        "theme_title": "Islamabad Centaurus Showstopper #77",
+        "car_compatibility": "911 GT3 RS",
+        "vibe": "Showstopper",
+        "keywords": "Flashy, unique, gold, holographic, stance, slammed, car meet, attention, custom, bright",
+        "config_mapping": {
+            "bodyColorHex": "#c5a040",
+            "bodyColorLabel": "Gold Chrome",
+            "wrapIndex": 4,
+            "wrapLabel": "Holographic",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 2,
+            "rimColorLabel": "Gold",
+            "bumperIndex": 2,
+            "hoodIndex": 1,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.08,
+            "tuningIndex": 2,
+            "tuningLabel": "Stage 3 Full"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 2400000,
+            "sourcing_city": "Islamabad",
+            "primary_hub": "G-8 Markaz",
+            "trusted_importer": "Speedline Motorsports Islamabad",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 5,
+        "theme_title": "Northern Areas Rally Spec #55",
+        "car_compatibility": "Supra MkIV",
+        "vibe": "Rally Spec",
+        "keywords": "Lifted, rugged, durable, camo, utility, rough terrain, northern areas, offroad, adventure",
+        "config_mapping": {
+            "bodyColorHex": "#004225",
+            "bodyColorLabel": "British Racing",
+            "wrapIndex": 5,
+            "wrapLabel": "Digital Camo",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 3,
+            "rimColorLabel": "Gunmetal",
+            "bumperIndex": 1,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.04,
+            "tuningIndex": 1,
+            "tuningLabel": "Stage 2 Turbo"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 950000,
+            "sourcing_city": "Rawalpindi",
+            "primary_hub": "IJP Road Kacha Stop",
+            "trusted_importer": "Potohar Offroad Importers",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 6,
+        "theme_title": "Lahore Undercover Mafia #11",
+        "car_compatibility": "AMG E63 S",
+        "vibe": "Stealth",
+        "keywords": "Aggressive, dark, clean, low profile, blacked out, mafia, undercover, executive",
+        "config_mapping": {
+            "bodyColorHex": "#1a1a1a",
+            "bodyColorLabel": "Carbon Stealth",
+            "wrapIndex": 3,
+            "wrapLabel": "Matte Satin",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 1,
+            "hoodIndex": 1,
+            "spoilerIndex": 1,
+            "suspensionOffset": -0.04,
+            "tuningIndex": 2,
+            "tuningLabel": "Stage 3 Full"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 850000,
+            "sourcing_city": "Lahore",
+            "primary_hub": "Montgomery Road",
+            "trusted_importer": "MaxPower Motorsports Lahore",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 7,
+        "theme_title": "Karachi Port Track Attacker #23",
+        "car_compatibility": "AMG GT4",
+        "vibe": "Track Monster",
+        "keywords": "Race spec, circuit, aerodynamics, high speed, wing, carbon, performance",
+        "config_mapping": {
+            "bodyColorHex": "#c0152a",
+            "bodyColorLabel": "Racing Red",
+            "wrapIndex": 1,
+            "wrapLabel": "Carbon Fiber",
+            "rimStyleIndex": 2,
+            "rimColorIndex": 5,
+            "rimColorLabel": "Ceramic White",
+            "bumperIndex": 2,
+            "hoodIndex": 2,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.06,
+            "tuningIndex": 4,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 2900000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "DHA Phase 2 Ext",
+            "trusted_importer": "TrackLine Karachi",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 8,
+        "theme_title": "Pindi Saddar Vintage Cruise #31",
+        "car_compatibility": "Skyline GT-R R34",
+        "vibe": "Vintage Heritage",
+        "keywords": "Classic, retro, traditional, clean look, pure, jdm, stock look, clean",
+        "config_mapping": {
+            "bodyColorHex": "#f0f0ee",
+            "bodyColorLabel": "Pearl White",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 1,
+            "rimColorLabel": "Brushed Silver",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.0,
+            "tuningIndex": 0,
+            "tuningLabel": "Stock"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 250000,
+            "sourcing_city": "Rawalpindi",
+            "primary_hub": "Babu Mohallah (Saddar)",
+            "trusted_importer": "JDM Classics Pakistan",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 9,
+        "theme_title": "Clifton Beach Neon Glow #66",
+        "car_compatibility": "Supra MkIV",
+        "vibe": "Showstopper",
+        "keywords": "Flashy, neon, custom, car meet, attention, midnight runner, stance",
+        "config_mapping": {
+            "bodyColorHex": "#2d0045",
+            "bodyColorLabel": "Deep Purple",
+            "wrapIndex": 4,
+            "wrapLabel": "Holographic",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 4,
+            "rimColorLabel": "Candy Red",
+            "bumperIndex": 2,
+            "hoodIndex": 1,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.08,
+            "tuningIndex": 3,
+            "tuningLabel": "Stage 3 Full"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1600000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "Plaza Market (M.A. Jinnah Road)",
+            "trusted_importer": "ShineMax Custom Karachi",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 10,
+        "theme_title": "Islamabad Diplomatic Envoy #01",
+        "car_compatibility": "AMG E63 S",
+        "vibe": "VIP Executive",
+        "keywords": "Elegant, luxury, formal, diplomatic, clean, defense, upscale",
+        "config_mapping": {
+            "bodyColorHex": "#0a0a0a",
+            "bodyColorLabel": "Obsidian Black",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 3,
+            "rimColorLabel": "Gunmetal",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": -0.02,
+            "tuningIndex": 1,
+            "tuningLabel": "Stage 1 ECU"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 420000,
+            "sourcing_city": "Islamabad",
+            "primary_hub": "Blue Area",
+            "trusted_importer": "EuroSpec Motors Capital",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 11,
+        "theme_title": "Gulberg Midnight Racer #88",
+        "car_compatibility": "Skyline GT-R R34",
+        "vibe": "Stealth",
+        "keywords": "Dark, clean, low profile, aggressive, street racing, blacked out, midnight",
+        "config_mapping": {
+            "bodyColorHex": "#0d1f3c",
+            "bodyColorLabel": "Midnight Blue",
+            "wrapIndex": 1,
+            "wrapLabel": "Carbon Fiber",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 1,
+            "hoodIndex": 1,
+            "spoilerIndex": 1,
+            "suspensionOffset": -0.05,
+            "tuningIndex": 3,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1300000,
+            "sourcing_city": "Lahore",
+            "primary_hub": "DHA Phase 5 Commercial",
+            "trusted_importer": "Speed Cred Lahore",
+            "platforms": "SehgalMotors.pk / Autostore.pk"
+        }
+    },
+    {
+        "id": 12,
+        "theme_title": "Karachi Karsaz Aero Attack #14",
+        "car_compatibility": "AMG GT4",
+        "vibe": "Track Monster",
+        "keywords": "Race spec, aerodynamic, performance, wing, loud, circuit",
+        "config_mapping": {
+            "bodyColorHex": "#c45200",
+            "bodyColorLabel": "Sunset Orange",
+            "wrapIndex": 1,
+            "wrapLabel": "Carbon Fiber",
+            "rimStyleIndex": 2,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 2,
+            "hoodIndex": 2,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.06,
+            "tuningIndex": 4,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 2750000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "Khalid Bin Waleed Road",
+            "trusted_importer": "Extreme Motorsports",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 13,
+        "theme_title": "Rawalpindi Ring Road Fighter #03",
+        "car_compatibility": "Supra A80",
+        "vibe": "Track Monster",
+        "keywords": "Performance, circuit, aerodynamics, high speed, loud, drift, wing",
+        "config_mapping": {
+            "bodyColorHex": "#c0152a",
+            "bodyColorLabel": "Racing Red",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 3,
+            "rimColorLabel": "Gunmetal",
+            "bumperIndex": 2,
+            "hoodIndex": 1,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.06,
+            "tuningIndex": 3,
+            "tuningLabel": "Stage 3 Full"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1450000,
+            "sourcing_city": "Rawalpindi",
+            "primary_hub": "Chah Sultan Road",
+            "trusted_importer": "Autoz Pakistan",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 14,
+        "theme_title": "DHA Lahore VIP Cruiser #20",
+        "car_compatibility": "AMG E63 S",
+        "vibe": "VIP Executive",
+        "keywords": "Elegant, luxury, formal, expensive, clean, upscale, royal",
+        "config_mapping": {
+            "bodyColorHex": "#f0f0ee",
+            "bodyColorLabel": "Pearl White",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 1,
+            "rimColorLabel": "Brushed Silver",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.0,
+            "tuningIndex": 1,
+            "tuningLabel": "Stage 1 ECU"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 390000,
+            "sourcing_city": "Lahore",
+            "primary_hub": "McLeod Road",
+            "trusted_importer": "CarX Lahore",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 15,
+        "theme_title": "Kacha Stop Offroad Utility #50",
+        "car_compatibility": "Supra MkIV",
+        "vibe": "Rally Spec",
+        "keywords": "Lifted, rugged, durable, camo, offroad, utility, adventure",
+        "config_mapping": {
+            "bodyColorHex": "#4a4a4a",
+            "bodyColorLabel": "Matte Gray",
+            "wrapIndex": 5,
+            "wrapLabel": "Digital Camo",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 1,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.035,
+            "tuningIndex": 2,
+            "tuningLabel": "Stage 2 Turbo"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 890000,
+            "sourcing_city": "Rawalpindi",
+            "primary_hub": "IJP Road Kacha Stop",
+            "trusted_importer": "Potohar Offroad Importers",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 16,
+        "theme_title": "Karachi Zamzama Luxury Stealth #07",
+        "car_compatibility": "911 GT3 RS",
+        "vibe": "Stealth",
+        "keywords": "Aggressive, dark, clean, low profile, blacked out, undercover",
+        "config_mapping": {
+            "bodyColorHex": "#0a0a0a",
+            "bodyColorLabel": "Obsidian Black",
+            "wrapIndex": 3,
+            "wrapLabel": "Matte Satin",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 3,
+            "rimColorLabel": "Gunmetal",
+            "bumperIndex": 1,
+            "hoodIndex": 1,
+            "spoilerIndex": 1,
+            "suspensionOffset": -0.05,
+            "tuningIndex": 3,
+            "tuningLabel": "Stage 3 Full"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1950000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "DHA Phase 2 Ext",
+            "trusted_importer": "Tuning Kraft Karachi",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 17,
+        "theme_title": "Islamabad Sector Custom Shine #99",
+        "car_compatibility": "Supra A80",
+        "vibe": "Showstopper",
+        "keywords": "Flashy, unique, stance, slammed, car meet, custom, bright, attention",
+        "config_mapping": {
+            "bodyColorHex": "#2d0045",
+            "bodyColorLabel": "Deep Purple",
+            "wrapIndex": 4,
+            "wrapLabel": "Holographic",
+            "rimStyleIndex": 2,
+            "rimColorIndex": 2,
+            "rimColorLabel": "Gold",
+            "bumperIndex": 2,
+            "hoodIndex": 2,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.08,
+            "tuningIndex": 4,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1700000,
+            "sourcing_city": "Islamabad",
+            "primary_hub": "G-8 Markaz",
+            "trusted_importer": "Speedline Motorsports Islamabad",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 18,
+        "theme_title": "Liberty Chowk Heritage Runner #34",
+        "car_compatibility": "Skyline GT-R R34",
+        "vibe": "Vintage Heritage",
+        "keywords": "Classic, retro, racing colors, silver, traditional, clean look",
+        "config_mapping": {
+            "bodyColorHex": "#f0f0ee",
+            "bodyColorLabel": "Pearl White",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 1,
+            "rimColorLabel": "Brushed Silver",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.0,
+            "tuningIndex": 0,
+            "tuningLabel": "Stock"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 300000,
+            "sourcing_city": "Lahore",
+            "primary_hub": "Montgomery Road",
+            "trusted_importer": "JDM Classics Pakistan",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 19,
+        "theme_title": "Bahria Town Carbon Beast #82",
+        "car_compatibility": "AMG GT4",
+        "vibe": "Stealth",
+        "keywords": "Aggressive, dark, clean, low profile, street racing, carbon stealth",
+        "config_mapping": {
+            "bodyColorHex": "#1a1a1a",
+            "bodyColorLabel": "Carbon Stealth",
+            "wrapIndex": 1,
+            "wrapLabel": "Carbon Fiber",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 2,
+            "hoodIndex": 1,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.07,
+            "tuningIndex": 4,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 2200000,
+            "sourcing_city": "Rawalpindi",
+            "primary_hub": "Chah Sultan Road",
+            "trusted_importer": "Grease Monkey Pindi",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 20,
+        "theme_title": "Karachi Port Grand Envoy #12",
+        "car_compatibility": "AMG E63 S",
+        "vibe": "VIP Executive",
+        "keywords": "Elegant, luxury, formal, expensive, clean, upscale, defense",
+        "config_mapping": {
+            "bodyColorHex": "#0d1f3c",
+            "bodyColorLabel": "Midnight Blue",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 1,
+            "rimColorLabel": "Brushed Silver",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": -0.01,
+            "tuningIndex": 1,
+            "tuningLabel": "Stage 1 ECU"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 450000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "Khalid Bin Waleed Road",
+            "trusted_importer": "Tuning Kraft Karachi",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 21,
+        "theme_title": "M2 Motorway Interceptor #91",
+        "car_compatibility": "911 GT3 RS",
+        "vibe": "Track Monster",
+        "keywords": "Race spec, aerodynamics, wing, performance, circuit, high speed",
+        "config_mapping": {
+            "bodyColorHex": "#c0152a",
+            "bodyColorLabel": "Racing Red",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 2,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 2,
+            "hoodIndex": 2,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.06,
+            "tuningIndex": 4,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 3200000,
+            "sourcing_city": "Lahore",
+            "primary_hub": "DHA Phase 5 Commercial",
+            "trusted_importer": "MaxPower Motorsports Lahore",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 22,
+        "theme_title": "Lyari Midnight Street Special #45",
+        "car_compatibility": "Supra MkIV",
+        "vibe": "Stealth",
+        "keywords": "Aggressive, dark, low profile, blacked out, midnight, street racing",
+        "config_mapping": {
+            "bodyColorHex": "#0a0a0a",
+            "bodyColorLabel": "Obsidian Black",
+            "wrapIndex": 3,
+            "wrapLabel": "Matte Satin",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 2,
+            "hoodIndex": 1,
+            "spoilerIndex": 1,
+            "suspensionOffset": -0.06,
+            "tuningIndex": 3,
+            "tuningLabel": "Stage 3 Full"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1100000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "Plaza Market (M.A. Jinnah Road)",
+            "trusted_importer": "Extreme Motorsports",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 23,
+        "theme_title": "Rawalpindi Murree Road Safari #15",
+        "car_compatibility": "Supra A80",
+        "vibe": "Rally Spec",
+        "keywords": "Lifted, rugged, durable, camo, utility, offroad, adventure",
+        "config_mapping": {
+            "bodyColorHex": "#004225",
+            "bodyColorLabel": "British Racing",
+            "wrapIndex": 5,
+            "wrapLabel": "Digital Camo",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 3,
+            "rimColorLabel": "Gunmetal",
+            "bumperIndex": 1,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.04,
+            "tuningIndex": 1,
+            "tuningLabel": "Stage 2 Turbo"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 920000,
+            "sourcing_city": "Rawalpindi",
+            "primary_hub": "IJP Road Kacha Stop",
+            "trusted_importer": "Potohar Offroad Importers",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 24,
+        "theme_title": "F-7 Markaz Chrome Stance #69",
+        "car_compatibility": "Skyline GT-R R34",
+        "vibe": "Showstopper",
+        "keywords": "Flashy, unique, gold, holographic, stance, slammed, car meet, attention",
+        "config_mapping": {
+            "bodyColorHex": "#c5a040",
+            "bodyColorLabel": "Gold Chrome",
+            "wrapIndex": 4,
+            "wrapLabel": "Holographic",
+            "rimStyleIndex": 2,
+            "rimColorIndex": 2,
+            "rimColorLabel": "Gold",
+            "bumperIndex": 2,
+            "hoodIndex": 2,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.08,
+            "tuningIndex": 3,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1950000,
+            "sourcing_city": "Islamabad",
+            "primary_hub": "G-8 Markaz",
+            "trusted_importer": "Speedline Motorsports Islamabad",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 25,
+        "theme_title": "Defense Karachi Regal Cruise #02",
+        "car_compatibility": "AMG E63 S",
+        "vibe": "VIP Executive",
+        "keywords": "Elegant, luxury, formal, clean, defense, royal, high profile",
+        "config_mapping": {
+            "bodyColorHex": "#0a0a0a",
+            "bodyColorLabel": "Obsidian Black",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 1,
+            "rimColorLabel": "Brushed Silver",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.0,
+            "tuningIndex": 1,
+            "tuningLabel": "Stage 1 ECU"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 370000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "Khalid Bin Waleed Road",
+            "trusted_importer": "Tuning Kraft Karachi",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 26,
+        "theme_title": "Lahore Garrison Heritage Spec #10",
+        "car_compatibility": "Supra MkIV",
+        "vibe": "Vintage Heritage",
+        "keywords": "Classic, retro, traditional, clean look, pure, stock design",
+        "config_mapping": {
+            "bodyColorHex": "#f0f0ee",
+            "bodyColorLabel": "Pearl White",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 1,
+            "rimColorLabel": "Brushed Silver",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.0,
+            "tuningIndex": 0,
+            "tuningLabel": "Stock"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 280000,
+            "sourcing_city": "Lahore",
+            "primary_hub": "McLeod Road",
+            "trusted_importer": "JDM Classics Pakistan",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 27,
+        "theme_title": "Rawalpindi Sixth Avenue Track Speeder #04",
+        "car_compatibility": "AMG GT4",
+        "vibe": "Track Monster",
+        "keywords": "Race spec, wing, loud, vents, aerodynamic, performance, high speed, circuit",
+        "config_mapping": {
+            "bodyColorHex": "#c0152a",
+            "bodyColorLabel": "Racing Red",
+            "wrapIndex": 1,
+            "wrapLabel": "Carbon Fiber",
+            "rimStyleIndex": 2,
+            "rimColorIndex": 3,
+            "rimColorLabel": "Gunmetal",
+            "bumperIndex": 2,
+            "hoodIndex": 2,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.06,
+            "tuningIndex": 4,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 2600000,
+            "sourcing_city": "Rawalpindi",
+            "primary_hub": "Chah Sultan Road",
+            "trusted_importer": "Autoz Pakistan",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 28,
+        "theme_title": "Karachi Highway Night Runner #51",
+        "car_compatibility": "Skyline GT-R R34",
+        "vibe": "Stealth",
+        "keywords": "Aggressive, dark, clean, street racing, midnight, blacked out, undercover",
+        "config_mapping": {
+            "bodyColorHex": "#1a1a1a",
+            "bodyColorLabel": "Carbon Stealth",
+            "wrapIndex": 3,
+            "wrapLabel": "Matte Satin",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 2,
+            "hoodIndex": 1,
+            "spoilerIndex": 1,
+            "suspensionOffset": -0.05,
+            "tuningIndex": 3,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1200000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "DHA Phase 2 Ext",
+            "trusted_importer": "Extreme Motorsports",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 29,
+        "theme_title": "Islamabad E-7 Estate Crown #06",
+        "car_compatibility": "AMG E63 S",
+        "vibe": "VIP Executive",
+        "keywords": "Elegant, luxury, formal, clean, expensive, royal, defense",
+        "config_mapping": {
+            "bodyColorHex": "#0d1f3c",
+            "bodyColorLabel": "Midnight Blue",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 1,
+            "rimColorLabel": "Brushed Silver",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": -0.01,
+            "tuningIndex": 1,
+            "tuningLabel": "Stage 1 ECU"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 430000,
+            "sourcing_city": "Islamabad",
+            "primary_hub": "Blue Area",
+            "trusted_importer": "EuroSpec Motors Capital",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 30,
+        "theme_title": "Lahore Ring Road Orange Demon #78",
+        "car_compatibility": "Supra A80",
+        "vibe": "Track Monster",
+        "keywords": "Race spec, performance, wing, loud, circuit, motorsport, aerodynamic",
+        "config_mapping": {
+            "bodyColorHex": "#c45200",
+            "bodyColorLabel": "Sunset Orange",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 2,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 2,
+            "hoodIndex": 1,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.06,
+            "tuningIndex": 4,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1650000,
+            "sourcing_city": "Lahore",
+            "primary_hub": "DHA Phase 5 Commercial",
+            "trusted_importer": "Speed Cred Lahore",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 31,
+        "theme_title": "Karachi Karsaz Neon Sunset #81",
+        "car_compatibility": "Supra MkIV",
+        "vibe": "Showstopper",
+        "keywords": "Flashy, stance, car meet, custom, bright, unique, attention",
+        "config_mapping": {
+            "bodyColorHex": "#c45200",
+            "bodyColorLabel": "Sunset Orange",
+            "wrapIndex": 4,
+            "wrapLabel": "Holographic",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 2,
+            "rimColorLabel": "Gold",
+            "bumperIndex": 2,
+            "hoodIndex": 2,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.08,
+            "tuningIndex": 3,
+            "tuningLabel": "Stage 3 Full"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1500000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "Plaza Market (M.A. Jinnah Road)",
+            "trusted_importer": "ShineMax Custom Karachi",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 32,
+        "theme_title": "Rawalpindi Army Heritage Spec #08",
+        "car_compatibility": "911 GT3 RS",
+        "vibe": "Vintage Heritage",
+        "keywords": "Classic, traditional, pure, clean look, vintage, heritage",
+        "config_mapping": {
+            "bodyColorHex": "#004225",
+            "bodyColorLabel": "British Racing",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 1,
+            "rimColorLabel": "Brushed Silver",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.0,
+            "tuningIndex": 0,
+            "tuningLabel": "Stock"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 450000,
+            "sourcing_city": "Rawalpindi",
+            "primary_hub": "Babu Mohallah (Saddar)",
+            "trusted_importer": "Grease Monkey Pindi",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 33,
+        "theme_title": "Islamabad Margalla Ridge Attacker #33",
+        "car_compatibility": "AMG GT4",
+        "vibe": "Track Monster",
+        "keywords": "Race spec, wing, aerodynamic, performance, circuit, high speed, loud",
+        "config_mapping": {
+            "bodyColorHex": "#004225",
+            "bodyColorLabel": "British Racing",
+            "wrapIndex": 1,
+            "wrapLabel": "Carbon Fiber",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 2,
+            "hoodIndex": 2,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.05,
+            "tuningIndex": 4,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 2800000,
+            "sourcing_city": "Islamabad",
+            "primary_hub": "G-8 Markaz",
+            "trusted_importer": "Speedline Motorsports Islamabad",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 34,
+        "theme_title": "Lahore Cantt Executive Cruiser #13",
+        "car_compatibility": "AMG E63 S",
+        "vibe": "VIP Executive",
+        "keywords": "Elegant, luxury, formal, formal layout, expensive, clean, upscale",
+        "config_mapping": {
+            "bodyColorHex": "#0a0a0a",
+            "bodyColorLabel": "Obsidian Black",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 3,
+            "rimColorLabel": "Gunmetal",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": -0.02,
+            "tuningIndex": 1,
+            "tuningLabel": "Stage 1 ECU"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 410000,
+            "sourcing_city": "Lahore",
+            "primary_hub": "Montgomery Road",
+            "trusted_importer": "CarX Lahore",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 35,
+        "theme_title": "Karachi Port Stealth Cruiser #05",
+        "car_compatibility": "Skyline GT-R R34",
+        "vibe": "Stealth",
+        "keywords": "Aggressive, dark, low profile, blacked out, street racing, undercover",
+        "config_mapping": {
+            "bodyColorHex": "#0a0a0a",
+            "bodyColorLabel": "Obsidian Black",
+            "wrapIndex": 3,
+            "wrapLabel": "Matte Satin",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 3,
+            "rimColorLabel": "Gunmetal",
+            "bumperIndex": 1,
+            "hoodIndex": 1,
+            "spoilerIndex": 1,
+            "suspensionOffset": -0.04,
+            "tuningIndex": 2,
+            "tuningLabel": "Stage 3 Full"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 980000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "DHA Phase 2 Ext",
+            "trusted_importer": "Tuning Kraft Karachi",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 36,
+        "theme_title": "Rawalpindi IJP Camo Outrunner #44",
+        "car_compatibility": "Supra A80",
+        "vibe": "Rally Spec",
+        "keywords": "Lifted, rugged, camo, durable, utility, offroad, rough terrain",
+        "config_mapping": {
+            "bodyColorHex": "#4a4a4a",
+            "bodyColorLabel": "Matte Gray",
+            "wrapIndex": 5,
+            "wrapLabel": "Digital Camo",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 3,
+            "rimColorLabel": "Gunmetal",
+            "bumperIndex": 1,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.045,
+            "tuningIndex": 2,
+            "tuningLabel": "Stage 2 Turbo"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 870000,
+            "sourcing_city": "Rawalpindi",
+            "primary_hub": "IJP Road Kacha Stop",
+            "trusted_importer": "Potohar Offroad Importers",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 37,
+        "theme_title": "Islamabad E-11 Gloss Attacker #12",
+        "car_compatibility": "911 GT3 RS",
+        "vibe": "Track Monster",
+        "keywords": "Race spec, performance, wing, circuit, high speed, aerodynamic",
+        "config_mapping": {
+            "bodyColorHex": "#0d1f3c",
+            "bodyColorLabel": "Midnight Blue",
+            "wrapIndex": 1,
+            "wrapLabel": "Carbon Fiber",
+            "rimStyleIndex": 2,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 2,
+            "hoodIndex": 2,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.06,
+            "tuningIndex": 4,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 3100000,
+            "sourcing_city": "Islamabad",
+            "primary_hub": "Blue Area",
+            "trusted_importer": "EuroSpec Motors Capital",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 38,
+        "theme_title": "DHA Lahore Purple Showstopper #70",
+        "car_compatibility": "Supra MkIV",
+        "vibe": "Showstopper",
+        "keywords": "Flashy, custom, stance, car meet, bright, holographic, attention",
+        "config_mapping": {
+            "bodyColorHex": "#2d0045",
+            "bodyColorLabel": "Deep Purple",
+            "wrapIndex": 4,
+            "wrapLabel": "Holographic",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 2,
+            "rimColorLabel": "Gold",
+            "bumperIndex": 2,
+            "hoodIndex": 1,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.08,
+            "tuningIndex": 3,
+            "tuningLabel": "Stage 3 Full"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1400000,
+            "sourcing_city": "Lahore",
+            "primary_hub": "DHA Phase 5 Commercial",
+            "trusted_importer": "MaxPower Motorsports Lahore",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 39,
+        "theme_title": "Karachi Port Vintage JDM #17",
+        "car_compatibility": "Supra A80",
+        "vibe": "Vintage Heritage",
+        "keywords": "Classic, retro, traditional, stock look, pure, clean",
+        "config_mapping": {
+            "bodyColorHex": "#f0f0ee",
+            "bodyColorLabel": "Pearl White",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 1,
+            "rimColorLabel": "Brushed Silver",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.0,
+            "tuningIndex": 0,
+            "tuningLabel": "Stock"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 320000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "Plaza Market (M.A. Jinnah Road)",
+            "trusted_importer": "JDM Classics Pakistan",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 40,
+        "theme_title": "Rawalpindi Chah Sultan Pure Stealth #18",
+        "car_compatibility": "AMG GT4",
+        "vibe": "Stealth",
+        "keywords": "Aggressive, dark, low profile, blacked out, midnight, undercover",
+        "config_mapping": {
+            "bodyColorHex": "#0a0a0a",
+            "bodyColorLabel": "Obsidian Black",
+            "wrapIndex": 3,
+            "wrapLabel": "Matte Satin",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 2,
+            "hoodIndex": 1,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.05,
+            "tuningIndex": 3,
+            "tuningLabel": "Stage 3 Full"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 2100000,
+            "sourcing_city": "Rawalpindi",
+            "primary_hub": "Chah Sultan Road",
+            "trusted_importer": "Autoz Pakistan",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 41,
+        "theme_title": "Lahore Canal Road Track Spec #22",
+        "car_compatibility": "Supra MkIV",
+        "vibe": "Track Monster",
+        "keywords": "Race spec, circuit, aerodynamics, high speed, wing, performance",
+        "config_mapping": {
+            "bodyColorHex": "#c0152a",
+            "bodyColorLabel": "Racing Red",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 2,
+            "rimColorIndex": 3,
+            "rimColorLabel": "Gunmetal",
+            "bumperIndex": 2,
+            "hoodIndex": 2,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.06,
+            "tuningIndex": 4,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1550000,
+            "sourcing_city": "Lahore",
+            "primary_hub": "McLeod Road",
+            "trusted_importer": "Speed Cred Lahore",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 42,
+        "theme_title": "Islamabad F-6 Elite Envoy #04",
+        "car_compatibility": "AMG E63 S",
+        "vibe": "VIP Executive",
+        "keywords": "Elegant, luxury, formal, clean, upscale, defense, royal",
+        "config_mapping": {
+            "bodyColorHex": "#0a0a0a",
+            "bodyColorLabel": "Obsidian Black",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 1,
+            "rimColorLabel": "Brushed Silver",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.0,
+            "tuningIndex": 1,
+            "tuningLabel": "Stage 1 ECU"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 440000,
+            "sourcing_city": "Islamabad",
+            "primary_hub": "Blue Area",
+            "trusted_importer": "EuroSpec Motors Capital",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 43,
+        "theme_title": "Karachi Clifton Chrome Attacker #89",
+        "car_compatibility": "AMG GT4",
+        "vibe": "Showstopper",
+        "keywords": "Flashy, unique, gold, holographic, stance, custom, attention",
+        "config_mapping": {
+            "bodyColorHex": "#c5a040",
+            "bodyColorLabel": "Gold Chrome",
+            "wrapIndex": 4,
+            "wrapLabel": "Holographic",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 2,
+            "rimColorLabel": "Gold",
+            "bumperIndex": 2,
+            "hoodIndex": 2,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.08,
+            "tuningIndex": 3,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 2500000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "Khalid Bin Waleed Road",
+            "trusted_importer": "Extreme Motorsports",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 44,
+        "theme_title": "Pindi Babu Mohallah Heritage #12",
+        "car_compatibility": "Supra MkIV",
+        "vibe": "Vintage Heritage",
+        "keywords": "Classic, retro, pure, clean look, stock design, heritage",
+        "config_mapping": {
+            "bodyColorHex": "#f0f0ee",
+            "bodyColorLabel": "Pearl White",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 1,
+            "rimColorLabel": "Brushed Silver",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.0,
+            "tuningIndex": 0,
+            "tuningLabel": "Stock"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 290000,
+            "sourcing_city": "Rawalpindi",
+            "primary_hub": "Babu Mohallah (Saddar)",
+            "trusted_importer": "JDM Classics Pakistan",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 45,
+        "theme_title": "Lahore Defence Matte Attacker #16",
+        "car_compatibility": "911 GT3 RS",
+        "vibe": "Stealth",
+        "keywords": "Aggressive, dark, low profile, blacked out, matte satin, undercover",
+        "config_mapping": {
+            "bodyColorHex": "#1a1a1a",
+            "bodyColorLabel": "Carbon Stealth",
+            "wrapIndex": 3,
+            "wrapLabel": "Matte Satin",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 1,
+            "hoodIndex": 1,
+            "spoilerIndex": 1,
+            "suspensionOffset": -0.05,
+            "tuningIndex": 3,
+            "tuningLabel": "Stage 3 Full"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 2100000,
+            "sourcing_city": "Lahore",
+            "primary_hub": "DHA Phase 5 Commercial",
+            "trusted_importer": "MaxPower Motorsports Lahore",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 46,
+        "theme_title": "Karachi Port Camo Spec #09",
+        "car_compatibility": "Skyline GT-R R34",
+        "vibe": "Rally Spec",
+        "keywords": "Lifted, rugged, camo, durable, utility, offroad, adventure",
+        "config_mapping": {
+            "bodyColorHex": "#004225",
+            "bodyColorLabel": "British Racing",
+            "wrapIndex": 5,
+            "wrapLabel": "Digital Camo",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 3,
+            "rimColorLabel": "Gunmetal",
+            "bumperIndex": 1,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": 0.04,
+            "tuningIndex": 2,
+            "tuningLabel": "Stage 2 Turbo"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1150000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "Plaza Market (M.A. Jinnah Road)",
+            "trusted_importer": "ShineMax Custom Karachi",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 47,
+        "theme_title": "Islamabad Margalla Sunset Track #19",
+        "car_compatibility": "Supra A80",
+        "vibe": "Track Monster",
+        "keywords": "Race spec, wing, aerodynamic, performance, circuit, loud",
+        "config_mapping": {
+            "bodyColorHex": "#c45200",
+            "bodyColorLabel": "Sunset Orange",
+            "wrapIndex": 1,
+            "wrapLabel": "Carbon Fiber",
+            "rimStyleIndex": 2,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 2,
+            "hoodIndex": 2,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.06,
+            "tuningIndex": 4,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1750000,
+            "sourcing_city": "Islamabad",
+            "primary_hub": "G-8 Markaz",
+            "trusted_importer": "Speedline Motorsports Islamabad",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 48,
+        "theme_title": "Gulberg Executive Envoy #02",
+        "car_compatibility": "AMG E63 S",
+        "vibe": "VIP Executive",
+        "keywords": "Elegant, luxury, formal, expensive, clean, upscale, corporate",
+        "config_mapping": {
+            "bodyColorHex": "#0d1f3c",
+            "bodyColorLabel": "Midnight Blue",
+            "wrapIndex": 0,
+            "wrapLabel": "None",
+            "rimStyleIndex": 0,
+            "rimColorIndex": 1,
+            "rimColorLabel": "Brushed Silver",
+            "bumperIndex": 0,
+            "hoodIndex": 0,
+            "spoilerIndex": 0,
+            "suspensionOffset": -0.01,
+            "tuningIndex": 1,
+            "tuningLabel": "Stage 1 ECU"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 460000,
+            "sourcing_city": "Lahore",
+            "primary_hub": "DHA Phase 5 Commercial",
+            "trusted_importer": "CarX Lahore",
+            "platforms": "Autostore.pk"
+        }
+    },
+    {
+        "id": 49,
+        "theme_title": "Pindi Ring Road Night Spec #16",
+        "car_compatibility": "Skyline GT-R R34",
+        "vibe": "Stealth",
+        "keywords": "Aggressive, dark, street racing, midnight, blacked out, low profile",
+        "config_mapping": {
+            "bodyColorHex": "#0a0a0a",
+            "bodyColorLabel": "Obsidian Black",
+            "wrapIndex": 1,
+            "wrapLabel": "Carbon Fiber",
+            "rimStyleIndex": 1,
+            "rimColorIndex": 0,
+            "rimColorLabel": "Gloss Black",
+            "bumperIndex": 2,
+            "hoodIndex": 1,
+            "spoilerIndex": 1,
+            "suspensionOffset": -0.05,
+            "tuningIndex": 3,
+            "tuningLabel": "Race Build"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 1250000,
+            "sourcing_city": "Rawalpindi",
+            "primary_hub": "Chah Sultan Road",
+            "trusted_importer": "Grease Monkey Pindi",
+            "platforms": "SehgalMotors.pk"
+        }
+    },
+    {
+        "id": 50,
+        "theme_title": "Clifton Beach Purple Haze #03",
+        "car_compatibility": "911 GT3 RS",
+        "vibe": "Showstopper",
+        "keywords": "Flashy, unique, stance, custom, bright, attention, car meet",
+        "config_mapping": {
+            "bodyColorHex": "#2d0045",
+            "bodyColorLabel": "Deep Purple",
+            "wrapIndex": 4,
+            "wrapLabel": "Holographic",
+            "rimStyleIndex": 2,
+            "rimColorIndex": 2,
+            "rimColorLabel": "Gold",
+            "bumperIndex": 2,
+            "hoodIndex": 2,
+            "spoilerIndex": 2,
+            "suspensionOffset": -0.08,
+            "tuningIndex": 3,
+            "tuningLabel": "Stage 3 Full"
+        },
+        "market_data": {
+            "estimated_cost_pkr": 2600000,
+            "sourcing_city": "Karachi",
+            "primary_hub": "Plaza Market (M.A. Jinnah Road)",
+            "trusted_importer": "Extreme Motorsports",
+            "platforms": "Autostore.pk"
+        }
+    }
+]

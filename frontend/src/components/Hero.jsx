@@ -7,6 +7,7 @@ import { ChevronRight, Play, Settings, Sun, DoorOpen, RotateCcw } from 'lucide-r
 import { EffectComposer, Bloom, Vignette, ToneMapping } from '@react-three/postprocessing';
 import CarModel from './CarModel';
 import * as THREE from 'three';
+import { GL_PROPS_FULL, ADAPTIVE_DPR } from '../utils/r3fOptimizer.js';
 
 /* ── Loader ── */
 function LoaderOverlay() {
@@ -148,9 +149,10 @@ const Hero = ({ user, onSignOut, onOpenAuth }) => {
         {isCanvasVisible && (
           <Canvas
             shadows
-            frameloop={autoRotate ? "always" : "demand"} /* OPTIMIZED: Render on demand if not rotating */
+            frameloop={autoRotate ? "always" : "demand"}
             camera={{ position: [-1.5, 1.5, 8.5], fov: 42 }}
-            gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.1 }}
+            gl={GL_PROPS_FULL}
+            dpr={ADAPTIVE_DPR}
           >
             <color attach="background" args={['#0a0a0b']} />
             <fog attach="fog" args={['#0a0a0b', 5, 20]} />
