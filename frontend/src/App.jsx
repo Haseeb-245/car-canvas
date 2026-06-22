@@ -1,5 +1,6 @@
 import React, { Suspense, lazy, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import './index.css';
 import Hero from './components/Hero';
 import CarConfigurator from './components/CarConfigurator';
@@ -75,6 +76,7 @@ function App() {
         onClose={() => setShowAuthModal(false)} 
         onSignIn={handleSignIn} 
       />
+      <Analytics />
     </BrowserRouter>
   );
 }
