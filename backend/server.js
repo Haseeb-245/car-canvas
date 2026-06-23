@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
+const GEMINI_MODEL = 'gemini-2.5-flash';
+const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta';
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -373,7 +376,7 @@ const path = require('path');
 
 app.post('/api/ai/smart-configure', async (req, res) => {
   try {
-    const { userQuery, carName } = req.body;
+    const { userQuery, carName, currentConfig } = req.body;
     if (!userQuery) {
       return res.status(400).json({ error: "Configuration prompt or query is required." });
     }
@@ -518,6 +521,7 @@ app.post('/api/ai/smart-configure', async (req, res) => {
 
         Car Target Model: ${carName}
         User Customization Intent: "${userQuery}"
+        Current Configuration State: ${currentConfig ? JSON.stringify(currentConfig, null, 2) : 'Not Specified'}
 
         Reference contextual builds from our Pakistani tuning database:
         ${JSON.stringify(contextualMatches, null, 2)}
@@ -533,20 +537,18 @@ app.post('/api/ai/smart-configure', async (req, res) => {
         - suspensionOffset: Float value strictly bounded between -0.08 (lowered stance) and 0.04 (lifted stance)
         - tuningIndex: Integer from 0 to 3 (0=Stage 1, 1=Stage 2, 2=Stage 3, 3=Race Build), or null for Stock.
 
+        CRITICAL REQUIREMENT: Under the "config" key in the returned JSON, ONLY include the keys that the user's query explicitly requests to change or modify. Omit all other keys entirely from the "config" object.
+        For example:
+        - If the query is "make the paint red", your response config object should ONLY contain {"bodyColorHex": "#ff0000"}. Do not include wrapIndex, rimStyleIndex, etc.
+        - If the query is "stance the car and add a spoiler", your response config object should ONLY contain {"suspensionOffset": -0.06, "spoilerIndex": 2}.
+        - If the user query is "reset to stock" or specifies restoring the whole setup, then you may include all keys.
+
         Return ONLY a pure, valid raw JSON object matching the schema below. Do not wrap inside markdown code block formatting.
 
-        Response Schema:
+        Response Schema (Only include keys under config that are being changed):
         {
           "config": {
-            "bodyColorHex": "#0a0a0a",
-            "wrapIndex": 1,
-            "rimStyleIndex": 1,
-            "rimColorIndex": 0,
-            "bumperIndex": 2,
-            "hoodIndex": 1,
-            "spoilerIndex": 2,
-            "suspensionOffset": -0.05,
-            "tuningIndex": 2
+            "bodyColorHex": "#0a0a0a"
           },
           "market_report": {
             "estimated_cost_pkr": 1250000,
@@ -559,7 +561,7 @@ app.post('/api/ai/smart-configure', async (req, res) => {
       `;
 
       const aiCall = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+        `${GEMINI_API_BASE}/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -689,7 +691,7 @@ app.post('/api/ai/evaluate-build', async (req, res) => {
       `;
 
       const aiCall = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+        `${GEMINI_API_BASE}/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

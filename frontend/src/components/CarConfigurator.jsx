@@ -63,21 +63,20 @@ function isWheelPart(o) {
   const matName = o.material ? (Array.isArray(o.material) ? o.material[0].name || '' : o.material.name || '').toLowerCase() : '';
   const parentName = o.parent && o.parent.name ? o.parent.name.toLowerCase() : '';
 
-  // Explicitly do not match B-pillars/door frames
+  // Explicitly match E63S tyre meshes so they offset properly
   if (
-    meshName.includes('meshesblack82') ||
     meshName.includes('meshesblack101') ||
     meshName.includes('meshesblack00231') ||
     meshName.includes('meshesblack00151') ||
     meshName.includes('meshesblack00321')
   ) {
-    return false;
+    return true;
   }
 
   // E63 Custom brake calipers with suffix-safe checks
   const isE63Wheel = meshName.includes('meshescaliper');
 
-  return (
+  if (
     isE63Wheel ||
     meshName.includes('wheel') ||
     meshName.includes('rim') ||
@@ -99,7 +98,21 @@ function isWheelPart(o) {
     parentName.includes('rim') ||
     parentName.includes('tire') ||
     parentName.includes('tyre')
-  );
+  ) return true;
+
+  // Fallback for models without semantic node names (e.g., AMG GT4)
+  // Check the material name instead
+  let matNameFallback = '';
+  if (o.material) {
+    if (Array.isArray(o.material) && o.material[0] && o.material[0].name) {
+      matNameFallback = o.material[0].name.toLowerCase();
+    } else if (o.material.name) {
+      matNameFallback = o.material.name.toLowerCase();
+    }
+  }
+  if (matNameFallback.includes('rim') || matNameFallback.includes('tire') || matNameFallback.includes('tyre') || matNameFallback.includes('wheel')) return true;
+
+  return false;
 }
 
 const DRACO_PATH = '/draco/';
@@ -114,9 +127,8 @@ const CAR_DATA = [
   { id: 6, name: 'Supra MkIV', brand: 'TOYOTA', model: '/supra/source/supra_custom_draco.glb', accentColor: '#cc44ff', goldTint: '#9955cc', specs: { power: '280 HP', speed: '270 km/h', accel: '5.1s', engine: 'Inline-6 2JZ-GTE' } },
 ];
 
-// Preload models for configurator
-CAR_DATA.forEach(car => useGLTF.preload(car.model, DRACO_PATH));
-
+// Removed global preloading of all models to speed up configurator load times.
+// Models will now only load on-demand when the specific car is selected.
 /* ─── Configurator options ─── */
 const BODY_COLORS = [
   { label: 'Obsidian Black', hex: '#0a0a0a', metalness: 0.95, roughness: 0.08 },
@@ -581,8 +593,15 @@ function CarMeshCore({ scene, car, bodyColor, rimColor, height, rotate, bumper, 
       } else {
         isPaint = matName.includes('paint') || matName.includes('body') || matName.includes('color') || meshName.includes('paint') || matName.includes('exterior') || matName.includes('base');
       }
-      const isRim = rimType !== null || isStockRimMesh || isR34StockRim(o) || (matName.includes('rim') && !meshName.includes('wheels') && !meshName.includes('stock_rims')) || (matName.includes('alloy') && !meshName.includes('wheels') && !meshName.includes('stock_rims')) || (meshName.includes('wheel') && !matName.includes('tire') && !matName.includes('wheel18') && !meshName.includes('wheels') && !meshName.includes('mesheswheel002'));
 
+      // Identify if the object is a rim that should receive color updates
+      // Made more robust to include E63S and AMG GT4 rims
+      const isRim = rimType !== null || 
+                    isStockRimMesh || 
+                    isR34StockRim(o) || 
+                    matName.includes('rim') || 
+                    matName.includes('alloy') || 
+                    (meshName.includes('wheel') && !matName.includes('tire') && !matName.includes('rubber') && !meshName.includes('wheel18'));
 
       if (isPaint && !matName.includes('glass') && !matName.includes('interior') && !matName.includes('grille')) {
         sendLog('Paint Debug', `Mesh="${meshName}" | Material="${matName}"`);

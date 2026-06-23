@@ -18,8 +18,7 @@ const CAR_DATA = [
   { id: 6, name: 'Supra MkIV',       brand: 'TOYOTA',   model: '/supra/source/supra_final-v1.glb',         accentColor: '#cc44ff', goldTint: '#9955cc', specs: { power: '280 HP',  speed: '270 km/h', accel: '5.1s', engine: 'Inline-6 2JZ-GTE' } },
 ];
 
-// Preload all car models once at module level so useGLTF cache is warm
-CAR_DATA.forEach(car => useGLTF.preload(car.model, DRACO_PATH));
+// Removed global preload so models actually load lazily when scrolled into view.
 
 // ─── Shared geometry pool (created ONCE, reused by all cards) ─
 // Avoids recreating BufferGeometry on every card mount
@@ -34,33 +33,73 @@ const GEO = {
   fakeShadow:    new THREE.CircleGeometry(1.4, 32),
 };
 
-// ─── Hologram shader (optimised) ─────────────────────────────
-// KEY WINS: removed grid pow() call, simplified fresnel, FrontSide only
+// ─── Hologram shader — clean & cinematic ───────────────────
+// Design goals:
+//   • Strong fresnel rim glow (edge-lit cyan/accent)
+//   • Sparse horizontal scanlines via UV (not worldPos, so flat on all faces)
+//   • Smooth vertical opacity gradient (dense at bottom, fades at top)
+//   • Slow color sweep — bright band drifting upward
+//   • Occasional soft glitch pulse (no harsh CRT gaps)
 const hologramVert = `
+  varying vec3 vViewNormal;
   varying vec3 vWorldPos;
-  varying vec3 vNormal;
+  varying vec2 vUv;
   void main() {
-    vWorldPos = (modelMatrix * vec4(position, 1.0)).xyz;
-    vNormal   = normalize(normalMatrix * normal);
+    vWorldPos   = (modelMatrix * vec4(position, 1.0)).xyz;
+    vViewNormal = normalize(normalMatrix * normal);
+    vUv         = uv;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
 `;
+
 const hologramFrag = `
   uniform float uTime;
   uniform vec3  uColor;
   uniform float uOpacity;
-  uniform float uGlowIntensity;
+
+  varying vec3 vViewNormal;
   varying vec3 vWorldPos;
-  varying vec3 vNormal;
+  varying vec2 vUv;
+
   void main() {
-    vec3  normal   = normalize(vNormal);
-    float scanline = sin(vWorldPos.y * 140.0 - uTime * 9.0) * 0.12 + 0.88;
-    float fresnel  = pow(1.0 - max(dot(normal, vec3(0.0,0.0,1.0)), 0.0), 2.5);
-    float pulse    = 0.82 + 0.18 * sin(uTime * 3.5 + vWorldPos.y * 1.8);
-    float alpha    = uOpacity * scanline * pulse * (fresnel + 0.28);
-    gl_FragColor   = vec4(uColor * (1.0 + fresnel * uGlowIntensity), alpha);
+    // ── View-space fresnel: bright edges, transparent centre ──
+    // Lowered power to make the center less transparent/dim
+    float vdn     = abs(dot(normalize(vViewNormal), vec3(0.0, 0.0, 1.0)));
+    float fresnel = pow(1.0 - vdn, 2.0);
+
+    // ── CRT Scanlines in world space for realistic holographic projection ──
+    // High frequency horizontal lines that drift slowly downwards
+    float crtLines = sin(vWorldPos.y * 250.0 - uTime * 5.0);
+    // Sharpen the lines for a distinct CRT look
+    float scan = smoothstep(-0.2, 0.8, crtLines) * 0.5 + 0.5;
+
+    // ── Smooth upward sweep (bright data band travelling up) ──
+    float sweep   = sin(vWorldPos.y * 1.8 - uTime * 1.4) * 0.5 + 0.5;
+    sweep         = pow(sweep, 3.0) * 0.8;
+
+    // ── Vertical density: more opaque at bottom, fades at top ──
+    float grad    = clamp(1.4 - vWorldPos.y * 0.4, 0.4, 1.0);
+
+    // ── Color: accent + slight blue boost on fresnel edges ──
+    // Boosted base color multiplier to fix the "very dim" issue
+    vec3 col      = uColor * 1.5;
+    col           += vec3(0.1, 0.2, 0.4) * fresnel * 1.5;   // cool blue rim glow
+    col           += uColor * sweep * 2.0;                  // sweep brightens accent heavily
+
+    // ── Alpha: edge-focused + CRT scanline + gradient ──
+    // Increased base alpha multiplier so the hologram is brighter
+    float alpha   = uOpacity * (fresnel * 0.6 + 0.4) * scan * grad * 1.8;
+    alpha         += uOpacity * sweep * 0.5;                // sweep adds fill
+    
+    // Add subtle scanline darkening for the CRT effect
+    alpha *= (0.8 + 0.2 * scan);
+
+    alpha = clamp(alpha, 0.0, 1.0);
+
+    gl_FragColor  = vec4(col, alpha);
   }
 `;
+
 
 // ─── Scene prep helpers (extracted, memoised per scene reference) ─
 function buildPreparedScene(scene, modelScale, targetSize) {
@@ -151,24 +190,24 @@ const PlatformSceneCore = memo(({ scene, hovered, accentColor, modelScale }) => 
     return c;
   }, [scene, modelScale]);
 
-  // Hologram shader materials (one pass on holoClone, FrontSide, no wireframe layer)
+  // Hologram shader materials
   const holoMats = useRef([]);
+
   useEffect(() => {
     const mats = [];
     holoClone.traverse(o => {
       if (!o.isMesh) return;
       const m = new THREE.ShaderMaterial({
         uniforms: {
-          uTime:         { value: 0 },
-          uColor:        { value: new THREE.Color(accentColor) },
-          uOpacity:      { value: 0 },
-          uGlowIntensity:{ value: 0.9 },
+          uTime:    { value: 0 },
+          uColor:   { value: new THREE.Color(accentColor) },
+          uOpacity: { value: 0 },
         },
         vertexShader:   hologramVert,
         fragmentShader: hologramFrag,
         transparent: true,
         depthWrite:  false,
-        side:        THREE.FrontSide,   // FrontSide only — halves overdraw
+        side:        THREE.FrontSide,
         blending:    THREE.AdditiveBlending,
       });
       o.material = m;
@@ -198,6 +237,7 @@ const PlatformSceneCore = memo(({ scene, hovered, accentColor, modelScale }) => 
   const pitGlowRef    = useRef();
   const pitRingRef    = useRef();
   const carRevealY    = useRef(HOLO_Y - 6);
+  const beamRef       = useRef();
 
   // Stable accent color as THREE.Color to avoid GC pressure
   const accentTHREE = useMemo(() => new THREE.Color(accentColor), [accentColor]);
@@ -206,34 +246,37 @@ const PlatformSceneCore = memo(({ scene, hovered, accentColor, modelScale }) => 
   const prevHovered = useRef(hovered);
 
   useFrame((state, delta) => {
-    const t   = state.clock.elapsedTime;
-    const a   = 1 - Math.exp(-6 * delta);
+    const t = state.clock.elapsedTime;
+    const a = 1 - Math.exp(-6 * delta);
 
-    // Only do expensive flicker math when hologram is actually visible
     const isHoloVisible = beamOp.current > 0.01 || !hovered;
-    const flicker = isHoloVisible
-      ? 0.72 + Math.sin(t * 16) * 0.09 + Math.sin(t * 31) * 0.04
-      : 1.0;
 
-    // Hologram fade
-    const holoTarget = hovered ? 0 : 0.72;
+    // Hologram opacity & subtle flicker
+    const flicker = isHoloVisible
+      ? 0.95 + Math.sin(t * 14.0) * 0.02 + Math.sin(t * 37.0) * 0.01
+      : 1.0;
+    const holoTarget = hovered ? 0 : 0.85;
     beamOp.current += (holoTarget - beamOp.current) * a;
     const hologramOp = beamOp.current * flicker;
 
-    // Only update shader uniforms when hologram is non-trivially visible
+    // Update shader uniforms
     if (isHoloVisible && holoMats.current.length) {
       for (const m of holoMats.current) {
         m.uniforms.uTime.value    = t;
         m.uniforms.uOpacity.value = hologramOp;
-        m.uniforms.uGlowIntensity.value = 1.1;
       }
+    }
+
+    // Vertical data beam
+    if (beamRef.current) {
+      beamRef.current.material.opacity = beamOp.current * (0.07 + Math.sin(t * 4.5) * 0.03);
     }
 
     // Hologram float
     if (holoRef.current) {
-      holoRef.current.rotation.y   += delta * 0.4;
-      holoRef.current.rotation.x    = Math.sin(t * 0.7) * 0.05;
-      holoRef.current.position.y    = HOLO_Y + Math.sin(t * 1.2) * 0.06;
+      holoRef.current.rotation.y += delta * 0.38;
+      holoRef.current.rotation.x  = Math.sin(t * 0.6) * 0.04;
+      holoRef.current.position.y  = HOLO_Y + Math.sin(t * 1.1) * 0.07;
     }
 
     // Iris doors
@@ -241,10 +284,10 @@ const PlatformSceneCore = memo(({ scene, hovered, accentColor, modelScale }) => 
     if (doorLeftRef.current)  { const tg = hovered ?  Math.PI * 0.65 : 0; doorLeftRef.current.rotation.z  += (tg - doorLeftRef.current.rotation.z)  * a; }
 
     // Platform glow
-    if (pitGlowRef.current)   pitGlowRef.current.material.opacity  += ((hovered ? 0.65 : 0)    - pitGlowRef.current.material.opacity)  * a;
-    if (pitRingRef.current)   pitRingRef.current.material.opacity  += ((hovered ? 0.9  : 0)    - pitRingRef.current.material.opacity)  * a;
-    if (holeLightRef.current) holeLightRef.current.intensity       += ((hovered ? 28   : 0)    - holeLightRef.current.intensity)       * a;
-    if (irisRimRef.current)   irisRimRef.current.material.opacity  += ((hovered ? 0.95 : 0.45) - irisRimRef.current.material.opacity)  * a;
+    if (pitGlowRef.current)   pitGlowRef.current.material.opacity  += ((hovered ? 0.7  : 0)   - pitGlowRef.current.material.opacity)  * a;
+    if (pitRingRef.current)   pitRingRef.current.material.opacity  += ((hovered ? 1.0  : 0)   - pitRingRef.current.material.opacity)  * a;
+    if (holeLightRef.current) holeLightRef.current.intensity       += ((hovered ? 35   : 0)   - holeLightRef.current.intensity)       * a;
+    if (irisRimRef.current)   irisRimRef.current.material.opacity  += ((hovered ? 1.0  : 0.5) - irisRimRef.current.material.opacity)  * a;
 
     // Car reveal
     if (carRef.current) {
@@ -253,38 +296,43 @@ const PlatformSceneCore = memo(({ scene, hovered, accentColor, modelScale }) => 
       carRef.current.position.y = carRevealY.current;
       carRef.current.rotation.y += delta * 0.35;
       carRef.current.visible = hovered || carRevealY.current > HOLO_Y - 2.5;
-      if (carLtRef.current) carLtRef.current.intensity = THREE.MathUtils.lerp(carLtRef.current.intensity, hovered ? 7 : 0, a);
+      if (carLtRef.current) carLtRef.current.intensity = THREE.MathUtils.lerp(carLtRef.current.intensity, hovered ? 8 : 0, a);
     }
 
-    // Invalidate only if something visible changed (frameloop="demand" friendly)
     invalidate();
   });
 
   return (
     <>
-      {/* Reduced lighting: 1 point light replaces 2 expensive spotlights */}
-      <ambientLight intensity={0.1} />
-      <pointLight position={[2, 7, 4]} intensity={90} color="#ffffff" distance={18} decay={1.8} />
-      <pointLight position={[-2, 4, -2]} intensity={30} color={accentColor} distance={10} decay={2} />
-      {/* Single shared Environment — low resolution for cards */}
+      <ambientLight intensity={0.08} />
+      <pointLight position={[2, 7, 4]}   intensity={110} color="#ffffff"  distance={20} decay={1.8} />
+      <pointLight position={[-2, 4, -2]} intensity={50}  color={accentColor} distance={12} decay={2} />
       <Environment preset="city" background={false} />
 
       <group rotation={[0.32, 0, 0]} position={[0, -0.15, 0]}>
-        {/* Platform ring */}
+        {/* Platform base */}
         <mesh geometry={GEO.platformOuter} position={[0, -0.09, 0]}>
-          <meshStandardMaterial color="#08090f" metalness={0.96} roughness={0.05} envMapIntensity={2} />
+          <meshStandardMaterial color="#060810" metalness={0.97} roughness={0.04} envMapIntensity={3} />
         </mesh>
         <mesh geometry={GEO.platformRing} position={[0, 0.001, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <meshStandardMaterial color="#0d0f1e" metalness={0.97} roughness={0.04} envMapIntensity={3} />
+          <meshStandardMaterial color="#090b1a" metalness={0.98} roughness={0.03} envMapIntensity={4} />
         </mesh>
+
+        {/* Iris glow rings */}
         <mesh ref={irisRimRef} geometry={GEO.irisGlow} position={[0, 0.003, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <meshBasicMaterial color={accentColor} transparent opacity={0.75} blending={THREE.AdditiveBlending} depthWrite={false} />
         </mesh>
+        {/* Outer wide faint ring */}
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.002, 0]}>
+          <ringGeometry args={[IRIS_R + 0.25, IRIS_R + 0.42, 64]} />
+          <meshBasicMaterial color={accentColor} transparent opacity={0.18} blending={THREE.AdditiveBlending} depthWrite={false} />
+        </mesh>
         <mesh geometry={GEO.irisEdge} position={[0, -0.01, 0]}>
-          <meshBasicMaterial color={accentColor} transparent opacity={0.3} blending={THREE.AdditiveBlending} side={THREE.FrontSide} depthWrite={false} />
+          <meshBasicMaterial color={accentColor} transparent opacity={0.4} blending={THREE.AdditiveBlending} side={THREE.FrontSide} depthWrite={false} />
         </mesh>
 
-        <pointLight ref={holeLightRef} position={[0, -0.2, 0]} color={accentColor} intensity={0} distance={4} decay={1.2} />
+        {/* Pit glow */}
+        <pointLight ref={holeLightRef} position={[0, -0.2, 0]} color={accentColor} intensity={0} distance={5} decay={1.2} />
         <mesh ref={pitGlowRef} geometry={GEO.pitGlow} position={[0, 0.006, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <meshBasicMaterial color={accentColor} transparent opacity={0} blending={THREE.AdditiveBlending} depthWrite={false} />
         </mesh>
@@ -295,28 +343,34 @@ const PlatformSceneCore = memo(({ scene, hovered, accentColor, modelScale }) => 
         {/* Iris doors */}
         <group ref={doorRightRef} position={[0, 0.014, 0]}>
           <mesh geometry={GEO.doorHalf} rotation={[-Math.PI / 2, 0, 0]}>
-            <meshStandardMaterial color="#08090f" metalness={0.97} roughness={0.04} envMapIntensity={2} />
+            <meshStandardMaterial color="#06080f" metalness={0.98} roughness={0.03} envMapIntensity={3} />
           </mesh>
         </group>
         <group ref={doorLeftRef} position={[0, 0.014, 0]}>
           <mesh rotation={[-Math.PI / 2, 0, 0]}>
             <circleGeometry args={[IRIS_R, 32, Math.PI / 2, Math.PI]} />
-            <meshStandardMaterial color="#08090f" metalness={0.97} roughness={0.04} envMapIntensity={2} />
+            <meshStandardMaterial color="#06080f" metalness={0.98} roughness={0.03} envMapIntensity={3} />
           </mesh>
         </group>
 
-        {/* Hologram group — single clone, no wireframe layer */}
+        {/* Vertical data beam rising from platform */}
+        <mesh ref={beamRef} position={[0, HOLO_Y * 0.6, 0]}>
+          <cylinderGeometry args={[0.015, 0.04, HOLO_Y * 1.2, 8, 1, true]} />
+          <meshBasicMaterial color={accentColor} transparent opacity={0.1} blending={THREE.AdditiveBlending} side={THREE.BackSide} depthWrite={false} />
+        </mesh>
+
+        {/* Hologram group */}
         <group ref={holoRef} position={[0, HOLO_Y, 0]}>
           <primitive object={holoClone} />
-          <pointLight position={[0, 0.5, 0]} color={0x55ccff} intensity={1.5} distance={2.5} decay={2} />
+          <pointLight position={[0, 0.3, 0]} color={accentColor} intensity={2.5} distance={3} decay={2} />
+          <pointLight position={[0, 1.2, 0]} color="#ffffff" intensity={0.8} distance={2} decay={3} />
         </group>
 
-        {/* Physical car */}
+        {/* Physical car (revealed on hover) */}
         <group ref={carRef} position={[0, HOLO_Y, 0]}>
           <primitive object={carClone} castShadow />
-          {/* Fake shadow — cheap circle mesh, replaces expensive ContactShadows */}
           <mesh geometry={GEO.fakeShadow} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.002, 0]} material={shadowMat} />
-          <pointLight ref={carLtRef} position={[0, 1.2, 0]} color={accentColor} intensity={0} distance={6} decay={2} />
+          <pointLight ref={carLtRef} position={[0, 1.2, 0]} color={accentColor} intensity={0} distance={7} decay={2} />
         </group>
       </group>
     </>
@@ -348,7 +402,7 @@ const PlatformCard = memo(({ car, index, user, onOpenAuth }) => {
   // Intersection observer — mount Canvas lazily
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setIsVisible(true); },
+      ([e]) => { setIsVisible(e.isIntersecting); },
       { threshold: 0.01, rootMargin: '180px' }
     );
     if (cardRef.current) obs.observe(cardRef.current);
